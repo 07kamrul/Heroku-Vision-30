@@ -1,0 +1,56 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+	.profile-pic{
+		max-width: 200px;
+		max-height:200px;
+		margin: 0 auto;
+		border-radius: 50%;
+	}
+
+</style>
+
+<br>
+<div class="container">
+
+    <div class="col-md">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <h4>Bank Information</h4>
+            <hr>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-md">
+                        <table class="table table-borderless table-hover">
+                            <tr>
+                                <td>Account No:</td>
+                                <td>{{form.account_no}}</td>
+                            </tr>
+                            <tr>
+                                <td>Bank Name:</td>
+                                <td>{{form.bank_name}}</td>
+                            </tr>
+                            <tr>
+                                <td>Branch Address:</td>
+                                <td>{{form.branch_address}}</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-center">
+                    <input type="submit" class="btn btn-success btn-lg">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

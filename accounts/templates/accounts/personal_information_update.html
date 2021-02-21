@@ -1,0 +1,103 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+	.profile-pic{
+		max-width: 200px;
+		max-height:200px;
+		margin: 0 auto;
+		border-radius: 50%;
+	}
+
+
+</style>
+<br>
+
+
+<div class="container">
+
+    <div class="col-md">
+        <div class="shadow-lg p-3 mb-5 bg-white rounded">
+            <h4>Personal Information</h4>
+            <hr>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+<!--                {{form}}-->
+
+                <div class="row">
+                    <div class="col-md">
+
+                        <table class="table table-borderless table-hover">
+                            <tbody>
+                                <tr>
+                                    <td>NID:</td>
+                                    <td>{{form.nid}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Father's Name:</td>
+                                    <td>{{form.father_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Mother's Name:</td>
+                                    <td>{{form.mother_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Occupation:</td>
+                                    <td>{{form.occupation}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Designation:</td>
+                                    <td>{{form.designation}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Company:</td>
+                                    <td>{{form.company}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="col-md">
+                        <table class="table table-borderless table-hover">
+                            <tbody>
+                                <tr>
+                                    <td>Email:</td>
+                                    <td>{{form.email}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Phone:</td>
+                                    <td>{{form.phone}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Marital Status:</td>
+                                    <td>{{form.marital_status}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Permanent Address:</td>
+                                    <td>{{form.permanent_address}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Present Address:</td>
+                                    <td>{{form.present_address}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="d-flex justify-content-center">
+                    <input type="submit" class="btn btn-success btn-lg">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
