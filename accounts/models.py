@@ -23,7 +23,6 @@ class Profile(models.Model):
         ('Hindu', 'Hindu'),
     )
     OCCUPATION_STATUS = (
-        ('',''),
         ('Govt.','Govt.'),
         ('Semi Govt.','Semi Govt.'),
         ('Service','Service'),
@@ -38,36 +37,36 @@ class Profile(models.Model):
 
 
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=200, blank=True, null=True, default="")
-    last_name = models.CharField(max_length=200, blank=True, null=True, default="")
+    first_name = models.CharField(max_length=200, null=True)
+    last_name = models.CharField(max_length=200, null=True)
     name = models.CharField(max_length=200, null=True)
     profile_pic = models.ImageField(default="profile.jpg", null=True, blank=True)
     joining_date = models.DateField(auto_now_add=False, auto_now=False, null=True,)
 
-    father_name = models.CharField(max_length=200, blank=True, default="")
-    mother_name = models.CharField(max_length=200, blank=True, default="")
-    nationality = models.CharField(max_length=200, blank=True, default="")
+    father_name = models.CharField(max_length=200, blank=True,default="")
+    mother_name = models.CharField(max_length=200, blank=True,default="")
+    nationality = models.CharField(max_length=200, blank=True,default="")
 
     gender = models.CharField(max_length=200, choices=GENDER_STATUS,default="")
 
-    occupation = models.CharField(max_length=200, choices=OCCUPATION_STATUS, blank=True, default="")
+    occupation = models.CharField(max_length=200, choices=OCCUPATION_STATUS,default="")
     designation = models.CharField(max_length=200, blank=True,default="")
-    company = models.CharField(max_length=200, null=True, blank=True)
+    company = models.CharField(max_length=200,  blank=True,default="")
 
-    nid = models.CharField(max_length=200, blank=True, default="" )
+    nid = models.CharField(max_length=200,default="" )
     member_id = models.IntegerField(default=0)
     phone = models.CharField(max_length=200,default="" )
     email = models.CharField(max_length=200,default="" )
 
-    dob = models.DateField(auto_now_add=False, null=True, auto_now=False )
+    dob = models.DateField(auto_now_add=False,null=True, auto_now=False )
 
-    marital_status = models.CharField(max_length=200, blank=True, default="", choices=MARITAL_STATUS)
-    religion = models.CharField(max_length=200, blank=True, default="", choices=RELIGION_STATUS)
+    marital_status = models.CharField(max_length=200,default="", choices=MARITAL_STATUS)
+    religion = models.CharField(max_length=200,default="", choices=RELIGION_STATUS)
 
-    permanent_address = models.CharField(max_length=200, default="",  blank=True)
-    present_address = models.CharField(max_length=200, default="",  blank=True)
+    permanent_address = models.CharField(max_length=200,default="",  blank=True)
+    present_address = models.CharField(max_length=200,default="",  blank=True)
 
-    status = models.CharField(max_length=200, blank=True, default="", choices=MEMBER_STATUS)
+    status = models.CharField(max_length=200, default="", choices=MEMBER_STATUS)
     # left_date = models.DateField(validators=validateLeft)
 
     #Nominee
@@ -92,6 +91,21 @@ class Profile(models.Model):
     branch_address = models.CharField(max_length=200,default="", blank=True)
 
 
+    # def __str__(self):
+    #     return self.name
+        # return self.user.username
+
+    # def validateLeft(self):
+    #     if self.status == 'Left':
+    #         self.left_date
+
+    # def _get_full_name(self):
+    #     return '%s %s' % (self.first_name, self.last_name)  # Returns the person's full name.
+    #
+    # name = property(_get_full_name)
+
+    # def __unicode__(self):
+    #     return self.name
     def __str__(self):
         return self.name
 

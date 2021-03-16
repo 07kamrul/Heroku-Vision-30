@@ -273,9 +273,6 @@ def amounts(request):
     return render(request, 'accounts/amounts.html', context)
 
 
-
-
-
 # Individual Amounts History
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
