@@ -27,10 +27,9 @@ from datetime import datetime, timedelta
 
 
 def depositeFeed(request):
-
     deposit = Deposite.objects.all()
 
-    deposit_posts = sorted(deposit, key = attrgetter('date'), reverse=True)
+    deposit_posts = sorted(deposit, key=attrgetter('date'), reverse=True)
 
     context = {'deposit_posts': deposit_posts}
 
@@ -38,8 +37,6 @@ def depositeFeed(request):
 
 
 def createDeposite(request):
-
-    
     form = DepositeForm()
 
     if request.method == 'POST':
@@ -51,7 +48,6 @@ def createDeposite(request):
 
     context = {'form': form}
     return render(request, 'accounts/create_deposite.html', context)
-
 
 
 @login_required(login_url='login')
@@ -67,7 +63,6 @@ def allUser(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def registerPage(request):
-
     form = CreateUserForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
@@ -82,7 +77,7 @@ def registerPage(request):
             password2 = form.cleaned_data.get('password2')
 
             user = authenticate(request, username=username, first_name=first_name, last_name=last_name,
-                                      email=email, password1=password1, password2=password2)
+                                email=email, password1=password1, password2=password2)
 
             # username = form.cleaned_data.get('username')
 
@@ -102,14 +97,13 @@ def registerPage(request):
             # return redirect('create_profile')
             return redirect('members')
 
-
     context = {'form': form}
     return render(request, 'accounts/register.html', context)
 
 
 @login_required(login_url='login')
 # @allowed_users(allowed_roles=['admin'])
-def updateUser(request,pk):
+def updateUser(request, pk):
     user = User.objects.get(id=pk)
     form = UpdateUserForm(instance=user)
 
@@ -123,8 +117,6 @@ def updateUser(request,pk):
 
     context = {'form': form}
     return render(request, 'accounts/updateUser.html', context)
-
-
 
 
 # Login
@@ -189,7 +181,6 @@ def yourProfile(request):
 # Dashboard
 @login_required(login_url='login')
 def home(request):
-
     profile = Profile.objects.all()
 
     total_member = profile.count()
@@ -306,7 +297,7 @@ def pendingAmounts(request):
         pending_profile = amount.count()
 
         context = {'profile': profile, 'total_pending_amount': total_pending_amount, 'total_pending': total_pending,
-               'pending_profile': pending_profile, 'amount': amount}
+                   'pending_profile': pending_profile, 'amount': amount}
 
         return render(request, 'accounts/pending_amount.html', context)
 
@@ -377,7 +368,6 @@ def members(request):
 
     for i in pro:
         for j in i:
-
             p = Profile.objects.get(id=j)
 
             profile_id = j
@@ -485,6 +475,7 @@ def updatebankinformation(request, pk):
     context = {'form': form}
     return render(request, 'accounts/bank_information_update.html', context)
 
+
 @login_required(login_url='login')
 def accountSettings(request):
     profile = request.user.profile
@@ -502,13 +493,15 @@ def accountSettings(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def createAmount(request):
-    
-    form = AmountForm()
+    # form = AmountForm()
+    form = CreateAmountForm()
+
 
     if request.method == 'POST':
-        form = AmountForm(request.POST)
+        form = CreateAmountForm(request.POST)
         if form.is_valid():
             form.save()
+
             return redirect('/amounts/')
 
     context = {'form': form}
@@ -516,7 +509,26 @@ def createAmount(request):
     return render(request, 'accounts/create_amount.html', context)
 
 
-def updateAmount(request,pk):
+
+def cornCreateAmount(request):
+    form = CreateAmountForm()
+    profile = Profile.objects.all()
+    for p in profile:
+        print(p.name)
+
+    # if request.method == 'POST':
+    #     form = CreateAmountForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #
+    #         return redirect('/amounts/')
+    #
+    # context = {'form': form}
+    #
+    # return render(request, 'accounts/create_amount.html', context)
+
+
+def updateAmount(request, pk):
     amount = Amount.objects.get(id=pk)
 
     form = AmountForm(instance=amount)
@@ -535,7 +547,7 @@ def updateAmount(request,pk):
     return render(request, 'accounts/update_amount.html', context)
 
 
-def deleteAmount(request,pk):
+def deleteAmount(request, pk):
     amount = Amount.objects.get(id=pk)
 
     if request.method == 'POST':
@@ -545,6 +557,7 @@ def deleteAmount(request,pk):
     context = {'amount': amount}
 
     return render(request, 'accounts/delete_amount.html', context)
+
 
 @login_required(login_url='login')
 def settings(request):

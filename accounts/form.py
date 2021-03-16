@@ -12,10 +12,18 @@ class ProfileForm(ModelForm):
         fields = '__all__'
         exclude = ['user']
 
+
 class AmountForm(ModelForm):
     class Meta:
         model = Amount
         fields = '__all__'
+
+
+class CreateAmountForm(ModelForm):
+    class Meta:
+        model = Amount
+        fields = ['profile', 'date', 'amount', 'status']
+
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -26,7 +34,7 @@ class CreateUserForm(UserCreationForm):
 class UpdateUserForm(ModelForm):
     class Meta:
         model = User
-        fields = ['username','is_staff','is_active','is_superuser']
+        fields = ['username', 'is_staff', 'is_active', 'is_superuser']
 
 
 class CreateProfileForm(ModelForm):
@@ -46,19 +54,23 @@ class DepositeForm(ModelForm):
         model = Deposite
         fields = '__all__'
 
+
 class PersonalInformationForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['father_name','mother_name','nid','phone','email','marital_status','occupation','designation','company','permanent_address','present_address']
+        fields = ['father_name', 'mother_name', 'nid', 'phone', 'email', 'marital_status', 'occupation', 'designation',
+                  'company', 'permanent_address', 'present_address']
 
 
 class NomineeInformationForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['nominee_name','relation','nominee_father_name','nominee_mother_name','nominee_phone','nominee_dob','nominee_gender','nominee_marital_status','nominee_religion','nominee_nid','nominee_present_address','nominee_permanent_address']
+        fields = ['nominee_name', 'relation', 'nominee_father_name', 'nominee_mother_name', 'nominee_phone',
+                  'nominee_dob', 'nominee_gender', 'nominee_marital_status', 'nominee_religion', 'nominee_nid',
+                  'nominee_present_address', 'nominee_permanent_address']
 
 
 class BankInformationForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['account_no','bank_name','branch_address']
+        fields = ['account_no', 'bank_name', 'branch_address']

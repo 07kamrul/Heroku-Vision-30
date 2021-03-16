@@ -2,50 +2,72 @@
 {% load static %}
 {% block content %}
 
-<br>
+    <br>
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="shadow p-3 mb-5 bg-white rounded">
-            <form action="" method="POST">
-                {% csrf_token %}
-                {{ form.management_form }}
-                    {{form}}
-<!--                <table>-->
-<!--                    <tr>-->
-<!--                        <td>Name</td>-->
-<!--                        <td>{{form.profile}}</td>-->
-<!--                    </tr>-->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="shadow p-3 mb-5 bg-white rounded">
+                <form action="" method="POST" >
+                    {% csrf_token %}
+                    {#                    {{ form.management_form }}#}
+{#                    {{ form.as_p }}#}
 
-<!--                    <tr>-->
-<!--                        <td>Date</td>-->
-<!--                        <td><input type="date" value={{form.date}}></td>-->
-<!--                        &lt;!&ndash;                        <td>{{form.date}}</td>&ndash;&gt;-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>Amount</td>-->
-<!--                        <td><input type="number" value={{form.amount}}></td>-->
-<!--                        &lt;!&ndash;                        <td>{{form.amount}}</td>&ndash;&gt;-->
+                    <table>
+                        <tr>
+                            <td>Name</td>
+                            <td>{{ form.profile }}</td>
+                        </tr>
+                        <tr>
+                            <td>Date</td>
+{#                            <td>{{ today_date }}</td>#}
+                            <td>{{ form.date }}</td>
+                        </tr>
+                        <tr>
+                            <td>Amount</td>
+                            <td>{{ form.amount }}</td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>{{ form.status }}</td>
+                        </tr>
 
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>Status</td>-->
-<!--                        <td>-->
-<!--                            <select>-->
-<!--                                <option value=value={{form.status}}></option>-->
-<!--                            </select>-->
-<!--                        </td>-->
 
-<!--                        &lt;!&ndash;                        <td>{{form.status}}</td>&ndash;&gt;-->
-<!--                    </tr>-->
-<!--                </table>-->
 
-                <hr>
-                <input type="submit" name="Submit">
-            </form>
+                    {% comment %}
+                            <td>
+                                <select name="profile">
+                                    {% for profile in form.profile %}
+                                        <option value="{{ profile }}">{{ profile }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>Date</td>
+                            <td><input type="date" value={{ form.date }}></td>
+                        </tr>
+                        <tr>
+                            <td>Amount</td>
+                            <td><input type="number" value={{ form.amount }}></td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>
+                                <select>
+                                    <option value=value={{ form.status }}></option>
+                                </select>
+                            </td>
+                        </tr>{% endcomment %}
+                    </table>
+
+                    <hr>
+                    <input type="submit" name="Submit">
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
 
 {% endblock %}
