@@ -38,13 +38,13 @@ INSTALLED_APPS = [
 
     'accounts.apps.AccountsConfig',
 
-    'django_crontab',
+    # 'django_crontab',
 
 ]
 
-CRONJOBS = [
-    ('55 18 * * *', 'accounts.views.cornCreateAmount')
-]
+# CRONJOBS = [
+#     ('15 13 * * *', 'accounts.views.cornCreateAmount')
+# ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

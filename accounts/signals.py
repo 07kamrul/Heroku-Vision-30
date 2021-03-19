@@ -9,16 +9,18 @@ from django.contrib.auth.models import Group
 def create_profile(sender, instance, created, **kwargs):
     if created:
         # Profile.objects.create(user=instance)
-        group = Group.objects.get(name='members')
-        instance.groups.add(group)
 
-        Profile.objects.create(
-            user=instance,
-            first_name=instance.first_name,
-            last_name=instance.last_name,
-            email=instance.email,
-            name='{} {}'.format(instance.first_name, instance.last_name)
-        )
+        group = Group.objects.get(name='members')
+        if group:
+            instance.groups.add(group)
+
+            Profile.objects.create(
+                user=instance,
+                first_name=instance.first_name,
+                last_name=instance.last_name,
+                email=instance.email,
+                name='{} {}'.format(instance.first_name, instance.last_name)
+            )
 
 
 @receiver(post_save, sender=User)

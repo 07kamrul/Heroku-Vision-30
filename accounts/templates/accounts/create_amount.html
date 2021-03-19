@@ -4,23 +4,24 @@
 
     <br>
 
-    <div class="row">
+    <div class="row justify-content-center align-self-center" >
         <div class="col-md-6">
-            <div class="shadow p-3 mb-5 bg-white rounded">
+            <div class="shadow p-3 mb-5 bg-white rounded" align="center">
                 <form action="" method="POST" >
                     {% csrf_token %}
                     {#                    {{ form.management_form }}#}
-{#                    {{ form.as_p }}#}
+<!--                   {{ form.as_p }}-->
 
                     <table>
-                        <tr>
+                        <tr style="padding-top:10">
                             <td>Name</td>
                             <td>{{ form.profile }}</td>
                         </tr>
                         <tr>
                             <td>Date</td>
 {#                            <td>{{ today_date }}</td>#}
-                            <td>{{ form.date }}</td>
+                            <td>{{ form.date }}                            <span>YYYY-mm-dd</span>
+</td>
                         </tr>
                         <tr>
                             <td>Amount</td>
@@ -28,42 +29,17 @@
                         </tr>
                         <tr>
                             <td>Status</td>
-                            <td>{{ form.status }}</td>
-                        </tr>
-
-
-
-                    {% comment %}
-                            <td>
-                                <select name="profile">
-                                    {% for profile in form.profile %}
-                                        <option value="{{ profile }}">{{ profile }}</option>
-                                    {% endfor %}
-                                </select>
-                            </td>
-
-                        </tr>
-
-                        <tr>
-                            <td>Date</td>
-                            <td><input type="date" value={{ form.date }}></td>
-                        </tr>
-                        <tr>
-                            <td>Amount</td>
-                            <td><input type="number" value={{ form.amount }}></td>
+                            <td>{{form.status}}</td>
                         </tr>
                         <tr>
                             <td>Status</td>
-                            <td>
-                                <select>
-                                    <option value=value={{ form.status }}></option>
-                                </select>
-                            </td>
-                        </tr>{% endcomment %}
+                            <td>{{form.diposite_slip}}</td>
+                        </tr>
                     </table>
 
                     <hr>
                     <input type="submit" name="Submit">
+                {{form.errors}}
                 </form>
             </div>
         </div>

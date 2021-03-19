@@ -1,0 +1,82 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="shadow p-3 mb-5 bg-white rounded">
+                <form action="" method="POST" >
+                    {% csrf_token %}
+                    {#                    {{ form.management_form }}#}
+{#                    {{ form.as_p }}#}
+
+                    <table>
+                        <tr>
+                            <td>Name</td>
+
+<!--                            <td>{{ form.profile }}</td>-->
+
+                            <td><input type="text" id="profile" name="profile" value="{{pro}}" readonly></td>
+
+                        </tr>
+                        <tr>
+                            <td>Date</td>
+{#                            <td>{{ today_date }}</td>#}
+<!--                            <td id="date" name="date">{{ form.date }}</td>-->
+                            <td><input type="text" value="" id="date" name="date"></td>
+                        </tr>
+                        <tr>
+                            <td>Amount</td>
+<!--                            <td id="amount" name="amount">{{ form.amount }}</td>-->
+                            <td><input type="int" value="" id="amount" name="amount"></td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+<!--                            <td>{{ form.status }}</td>-->
+                            <td><input type="text" id="status" name="status" value="Pending" readonly></td>
+                        </tr>
+
+
+
+                    {% comment %}
+                            <td>
+                                <select name="profile">
+                                    {% for profile in form.profile %}
+                                        <option value="{{ profile }}">{{ profile }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>Date</td>
+                            <td><input type="date" value={{ form.date }}></td>
+                        </tr>
+                        <tr>
+                            <td>Amount</td>
+                            <td><input type="number" value={{ form.amount }}></td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>
+                                <select>
+                                    <option value=value={{ form.status }}></option>
+                                </select>
+                            </td>
+                        </tr>{% endcomment %}
+                    </table>
+
+                    <hr>
+                    <input type="submit" name="Submit">
+                                    {{form.errors}}
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

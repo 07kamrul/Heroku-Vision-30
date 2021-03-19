@@ -22,7 +22,7 @@ class AmountForm(ModelForm):
 class CreateAmountForm(ModelForm):
     class Meta:
         model = Amount
-        fields = ['profile', 'date', 'amount', 'status']
+        fields = ['profile', 'date', 'amount', 'status','diposite_slip']
 
 
 class CreateUserForm(UserCreationForm):
@@ -58,9 +58,13 @@ class DepositeForm(ModelForm):
 class PersonalInformationForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['father_name', 'mother_name', 'nid', 'phone', 'email', 'marital_status', 'occupation', 'designation',
+        fields = ['profile_pic','father_name', 'mother_name', 'nid', 'phone', 'email', 'marital_status', 'occupation', 'designation',
                   'company', 'permanent_address', 'present_address']
 
+class PictureForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_pic']
 
 class NomineeInformationForm(ModelForm):
     class Meta:

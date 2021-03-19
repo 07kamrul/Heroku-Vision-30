@@ -17,10 +17,7 @@ from .form import *
 from django.contrib import messages
 
 import datetime
-from datetime import datetime, timedelta
-
-
-# Create your views here.
+from datetime import date, datetime, timedelta
 
 
 # All User
@@ -60,8 +57,8 @@ def allUser(request):
 
 
 # Register
-@login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+# @login_required(login_url='login')
+# @allowed_users(allowed_roles=['admin'])
 def registerPage(request):
     form = CreateUserForm()
     if request.method == 'POST':
@@ -477,25 +474,37 @@ def updatebankinformation(request, pk):
 
 
 @login_required(login_url='login')
-def accountSettings(request):
-    profile = request.user.profile
-    form = CreateUserForm(instance=profile)
+def accountSettings(request,pk):
+    # profile = request.user.profile
+    # form = CreateUserForm(instance=profile)
+    #
+    # if request.method == 'POST':
+    #     form = CreateUserForm(request.POST, request.FILES, instance=profile)
+    #     if form.is_valid():
+    #         form.save()
 
+
+    # profile = request.user.profile
+    profile = Profile.objects.get(id=pk)
+    print(profile)
+
+    form = PictureForm(instance=profile)
     if request.method == 'POST':
-        form = CreateUserForm(request.POST, request.FILES, instance=profile)
+        form = PictureForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
+            return redirect('your_profile')
 
     context = {'form': form}
+
     return render(request, 'accounts/settings.html', context)
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+# @allowed_users(allowed_roles=['admin'])
 def createAmount(request):
     # form = AmountForm()
     form = CreateAmountForm()
-
 
     if request.method == 'POST':
         form = CreateAmountForm(request.POST)
@@ -510,23 +519,23 @@ def createAmount(request):
 
 
 
-def cornCreateAmount(request):
-    form = CreateAmountForm()
-    profile = Profile.objects.all()
-    for p in profile:
-        print(p.name)
-
-    # if request.method == 'POST':
-    #     form = CreateAmountForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #
-    #         return redirect('/amounts/')
-    #
-    # context = {'form': form}
-    #
-    # return render(request, 'accounts/create_amount.html', context)
-
+# def AutoAmountGenerate(request):
+#     form = CreateAmountForm()
+#     profile = Profile.objects.all()
+#     for p in profile:
+#         print(p.name)
+#
+#     # if request.method == 'POST':
+#     #     form = CreateAmountForm(request.POST)
+#     #     if form.is_valid():
+#     #         form.save()
+#     #
+#     #         return redirect('/amounts/')
+#     #
+#     # context = {'form': form}
+#     #
+#     return render(request, 'accounts/autoamountgenerate.html')
+#
 
 def updateAmount(request, pk):
     amount = Amount.objects.get(id=pk)
