@@ -108,9 +108,9 @@
                     <th>Status</th>
                     <th>Diposite Slip</th>
 
-                    {% if request.user.is_staff %}
+                    <!--                    {% if request.user.is_staff %}-->
                     <th>Actions</th>
-                    {% endif %}
+                    <!--                    {% endif %}-->
 
                 </tr>
                 </thead>
@@ -127,14 +127,19 @@
                     <td>{{a.status}}</td>
                     <td><img id="myImg" src="{{a.diposite_slip.url}}" width="120" height="25"></td>
 
-                    {% if request.user.is_staff %}
+                    <td>
+                        <a href="{% url  'view_amount' a.id %}" class="btn btn-success" role="button"
+                           aria-disabled="true">View</a>
 
-                    <td><a href="{% url  'update_amount' a.id %}" class="btn btn-info" role="button"
+                        {% if request.user.is_staff %}
+
+                        <a href="{% url  'update_amount' a.id %}" class="btn btn-info" role="button"
                            aria-disabled="true">Edit</a>
                         <a href="{% url  'delete_amount' a.id %}" class="btn btn-danger" role="button"
-                           aria-disabled="true">Delete</a></td>
+                           aria-disabled="true">Delete</a>
+                        {% endif %}
 
-                    {% endif %}
+                    </td>
 
 
                 </tr>
@@ -148,11 +153,19 @@
                     <td>{{a.status}}</td>
                     <td><img src="{{a.diposite_slip.url}}" width="120" height="25"></td>
 
-                    {% if request.user.is_staff %}
-                    <td><a href="{% url  'update_amount' a.id %}" class="btn btn-info" role="button"
+                    <td>
+                        <a href="{% url  'view_amount' a.id %}" class="btn btn-success" role="button"
+                           aria-disabled="true">View</a>
+
+                        {% if request.user.is_staff %}
+
+                        <a href="{% url  'update_amount' a.id %}" class="btn btn-info" role="button"
                            aria-disabled="true">Edit</a>
-                        <a href="#" class="btn btn-danger" role="button" aria-disabled="true">Delete</a></td>
-                    {% endif %}
+                        <a href="{% url  'delete_amount' a.id %}" class="btn btn-danger" role="button"
+                           aria-disabled="true">Delete</a>
+                        {% endif %}
+
+                    </td>
 
                 </tr>
                 {% endif%}
@@ -168,9 +181,9 @@
                     <th>Amount: {{total_amount}}</th>
                     <th>Status</th>
                     <th>Diposite Slip</th>
-                    {% if request.user.is_staff %}
+                    <!--                    {% if request.user.is_staff %}-->
                     <th>Actions</th>
-                    {% endif %}
+                    <!--                    {% endif %}-->
                 </tr>
                 </tfoot>
 
@@ -276,6 +289,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
 }
 
 
+
+
+
+
 </style>
 
 <script>
@@ -327,6 +344,10 @@ var span = document.getElementsByClassName("close")[0];
 span.onclick = function() {
   modal.style.display = "none";
 }
+
+
+
+
 
 
 

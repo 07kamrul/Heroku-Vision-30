@@ -32,6 +32,7 @@ urlpatterns = [
     # --------------------------------------------------------------------
     path('amounts/', views.amounts, name="amounts"),
     path('create_amount/', views.createAmount, name="create_amount"),
+    path('view_amount/<str:pk>/', views.viewAmount, name="view_amount"),
     path('update_amount/<str:pk>/', views.updateAmount, name="update_amount"),
     path('delete_amount/<str:pk>/', views.deleteAmount, name="delete_amount"),
     # --------------------------------------------------------------------

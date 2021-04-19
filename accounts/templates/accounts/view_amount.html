@@ -1,0 +1,71 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+<style>
+	.profile-pic{
+		max-width: 100%;
+		max-height: 100%;
+		margin: 0 auto;
+	}
+
+
+
+
+
+
+
+</style>
+<br>
+<div class="container">
+    <div class="row center">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md">
+                        <table class="table table-borderless table-hover">
+                            <tbody>
+                            <tr>
+                                <td>Name:</td>
+                                <td>{{amount.profile}}</td>
+                            </tr>
+                            <tr>
+                                <td>Amount:</td>
+                                <td>{{amount.amount}}</td>
+                            </tr>
+                            <tr>
+                                <td>Status:</td>
+                                <td>{{amount.status}}</td>
+                            </tr>
+                             <tr>
+                                <td>Status:</td>
+                                <td>{{amount.date}}</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-md">
+                        <table class="table table-borderless table-hover">
+                            <tbody>
+
+                            <tr>
+                                <td colspan="2">
+                                    <img class="profile-pic" src="{{amount.diposite_slip.url}}" alt="">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+                <hr>
+            </form>
+        </div>
+    </div>
+
+</div>
+<br>
+{% endblock %}

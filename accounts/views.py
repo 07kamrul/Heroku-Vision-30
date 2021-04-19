@@ -537,6 +537,27 @@ def createAmount(request):
 #     return render(request, 'accounts/autoamountgenerate.html')
 #
 
+
+def viewAmount(request, pk):
+    amount = Amount.objects.get(id=pk)
+    print(amount)
+    form = AmountForm(instance=amount)
+
+    print(type(form))
+
+    if request.method == 'POST':
+        form = AmountForm(request.POST, request.FILES, instance=amount)
+
+        if form.is_valid():
+            form.save()
+            return redirect('/amounts/')
+
+    context = {'form': form, 'amount': amount}
+
+    return render(request, 'accounts/view_amount.html', context)
+
+
+
 def updateAmount(request, pk):
     amount = Amount.objects.get(id=pk)
 
