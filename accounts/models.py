@@ -117,7 +117,7 @@ class Amount(models.Model):
     date = models.DateField(auto_now_add=False, auto_now=False, null=True, blank=True)
     amount = models.IntegerField(default=0, null=True, blank=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
-    diposite_slip = models.ImageField(default="diposite.jpg", null=True, blank=True)
+    diposite_slip = models.ImageField(upload_to='images/amounts/',null=True, blank=True)
 
     def __str__(self):
         return self.profile.name

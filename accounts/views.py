@@ -507,7 +507,7 @@ def createAmount(request):
     form = CreateAmountForm()
 
     if request.method == 'POST':
-        form = CreateAmountForm(request.POST)
+        form = CreateAmountForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
 
