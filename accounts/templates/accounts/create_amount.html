@@ -2,48 +2,57 @@
 {% load static %}
 {% block content %}
 
-    <br>
+<br>
 
-    <div class="row justify-content-center align-self-center" >
-        <div class="col-md-6">
-            <div class="shadow p-3 mb-5 bg-white rounded" align="center">
-                <form action="" method="POST" enctype="multipart/form-data" >
-                    {% csrf_token %}
-                    {#                    {{ form.management_form }}#}
-<!--                   {{ form.as_p }}-->
+<div class="row justify-content-center align-self-center">
+    <div class="col-md-6">
+        <div class="shadow p-3 mb-5 bg-white rounded" align="center">
+            <form action="" method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <h3>Create Amount</h3>
+                <hr>
 
-                    <table>
-                        <tr style="padding-top:10">
-                            <td>Name</td>
-                            <td>{{ form.profile }}</td>
-                        </tr>
-                        <tr>
-                            <td>Date</td>
-{#                            <td>{{ today_date }}</td>#}
-                            <td>{{ form.date }}                            <span>YYYY-mm-dd</span>
-</td>
-                        </tr>
-                        <tr>
-                            <td>Amount</td>
-                            <td>{{ form.amount }}</td>
-                        </tr>
-                        <tr>
-                            <td>Status</td>
-                            <td>{{form.status}}</td>
-                        </tr>
-                        <tr>
-                            <td>Status</td>
-                            <td>{{form.diposite_slip}}</td>
-                        </tr>
-                    </table>
+                <!--                   {{ form.as_p }}-->
+                <table>
+                    <tr style="padding-top:10">
+                        <td>Name</td>
+                        <td>{{ form.profile }}</td>
+                        <td>{{ form.profile.errors}}</td>
 
-                    <hr>
-                    <input type="submit" name="Submit">
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td>{{ form.date }} <span>YYYY-mm-dd</span></td>
+                        <td>{{ form.date.errors}}</td>
+
+                    </tr>
+                    <tr>
+                        <td>Amount</td>
+                        <td>{{ form.amount }}</td>
+                        <td>{{ form.amount.errors}}</td>
+
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td>{{form.status}}</td>
+                        <td>{{ form.status.errors}}</td>
+
+                    </tr>
+                    <tr>
+                        <td>Deposite Slip</td>
+                        <td>{{form.diposite_slip}}</td>
+                        <td>{{form.diposite_slip.errors}}</td>
+
+                    </tr>
+                </table>
+
+                <hr>
+                <input type="submit" name="Submit" class="btn btn-success btn-lg">
                 {{form.errors}}
-                </form>
-            </div>
+            </form>
         </div>
     </div>
+</div>
 
 
 {% endblock %}

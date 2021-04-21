@@ -14,6 +14,12 @@
 
 
 
+
+
+
+
+
+
 </style>
 <br>
 <div class="container">
@@ -21,8 +27,23 @@
         <div class="shadow p-3 mb-5 bg-white rounded">
             <form action="" method="POST">
                 {% csrf_token %}
+                <h3 class="text-center">View Amount</h3>
+
                 <div class="row">
                     <div class="col-md">
+                        <table class="table table-borderless table-hover">
+                            <tbody>
+
+                            <tr>
+                                <td colspan="2">
+                                    <img class="profile-pic" src="{{amount.diposite_slip.url}}" alt="">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md">
+
                         <table class="table table-borderless table-hover">
                             <tbody>
                             <tr>
@@ -37,26 +58,20 @@
                                 <td>Status:</td>
                                 <td>{{amount.status}}</td>
                             </tr>
-                             <tr>
+                            <tr>
                                 <td>Status:</td>
                                 <td>{{amount.date}}</td>
                             </tr>
 
                             </tbody>
                         </table>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;<div class="text-center">
+                        <a class="btn btn-warning" href="{% url 'amounts' %}"> &#8592;
+                            Back to Amounts</a>
                     </div>
 
-                    <div class="col-md">
-                        <table class="table table-borderless table-hover">
-                            <tbody>
-
-                            <tr>
-                                <td colspan="2">
-                                    <img class="profile-pic" src="{{amount.diposite_slip.url}}" alt="">
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
                     </div>
 
 

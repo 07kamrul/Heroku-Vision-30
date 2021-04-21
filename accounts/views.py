@@ -510,8 +510,10 @@ def createAmount(request):
         form = CreateAmountForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
-
+            messages.success(request, "Successfully added!")
             return redirect('/amounts/')
+        else:
+            messages.error(request, "Please fill in all the fields.")
 
     context = {'form': form}
 

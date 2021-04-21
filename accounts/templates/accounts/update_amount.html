@@ -1,15 +1,53 @@
 {% extends 'accounts/main.html' %}
 {% load static %}
 {% block content %}
+<style>
+	.profile-pic{
+		max-width: 100%;
+		max-height: 100%;
+		margin: 0 auto;
+	}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
 <br>
 <div class="container">
-<div class="row center">
-    <div class="col-md-6">
+    <div class="row center">
         <div class="shadow p-3 mb-5 bg-white rounded">
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
+                <h3 class="text-center">Update Amount</h3>
+
                 <div class="row">
+                    <div class="col-md">
+                        <table class="table table-borderless table-hover">
+                            <tbody>
+
+                            <tr>
+                                <td colspan="2">
+                                    <img class="profile-pic" src="{{amount.diposite_slip.url}}" alt="">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="col-md">
 
                         <table class="table table-borderless table-hover">
@@ -23,23 +61,57 @@
                                 <td>{{form.amount}}</td>
                             </tr>
                             <tr>
+                                <td>Date:</td>
+                                <td>{{form.date}}</td>
+                            </tr>
+                            <tr>
                                 <td>Status:</td>
                                 <td>{{form.status}}</td>
                             </tr>
+                            <tr>
+                                <td>Deposite Slip:</td>
+                                <td>{{form.diposite_slip}}</td>
+                            </tr>
+                            <!--     <tr>
+                                     <td>
+                                         <a class="btn btn-danger btn-lg btn-block" href="{% url 'amounts' %}">Cancel</a>
+                                     </td>
+                                     <td>
+                                         <input type="submit" class="btn btn-success btn-lg btn-block">
+                                     </td>
+                                 </tr>-->
                             </tbody>
                         </table>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        <div>
+                            <h5 class="text-center"> Are you want to Update "{{amount}}"? </h5>
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+
+                            <div class="row ">
+                                <div class="col">
+                                    <a class="btn btn-danger btn-lg btn-block" href="{% url 'amounts' %}">Cancel</a>
+
+                                </div>
+                                <div class="col">
+                                    <input type="submit" class="btn btn-success btn-lg btn-block">
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-<!--                {{ form.management_form }}-->
-<!--                    {{form}}-->
+                <!--                {{ form.management_form }}-->
+                <!--                    {{form}}-->
 
-                <hr>
-                <input type="submit" name="Submit">
+                <!--                <hr>-->
             </form>
         </div>
     </div>
-</div>
 
 </div>
 <br>
