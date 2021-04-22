@@ -126,11 +126,9 @@
                     <td>{{a.amount}}</td>
                     <td>{{a.status}}</td>
                     <td>
-                    {% if a.diposite_slip is not none %}
-                        <img src="{{a.diposite_slip.url|default_if_none:'#'}}" width="120" height="25"></td>
-                    {% else %}
-                        <p>Image not found</p>
-                    {% endif %}
+                        <img src="{{a.diposite_slip.url}}" width="120" height="25">
+                    </td>
+
                     <td>
                         <a href="{% url  'view_amount' a.id %}" class="btn btn-success" role="button"
                            aria-disabled="true">View</a>
@@ -144,8 +142,6 @@
                         {% endif %}
 
                     </td>
-
-
                 </tr>
 
                 {% else %}
@@ -156,8 +152,8 @@
                     <td>{{a.amount}}</td>
                     <td>{{a.status}}</td>
                     <td>
-                        <img src="{{a.diposite_slip.url|default_if_none:'#'}}" width="120" height="25"></td>
-
+                        <img src="{{a.diposite_slip.url}}" width="120" height="25">
+                    </td>
                     <td>
                         <a href="{% url  'view_amount' a.id %}" class="btn btn-success" role="button"
                            aria-disabled="true">View</a>
@@ -169,12 +165,9 @@
                         <a href="{% url  'delete_amount' a.id %}" class="btn btn-danger" role="button"
                            aria-disabled="true">Delete</a>
                         {% endif %}
-
                     </td>
-
                 </tr>
                 {% endif%}
-
                 {% endfor %}
                 </tbody>
 
@@ -201,6 +194,8 @@
     $('#amount').DataTable();
 
     <!--From date to date filter-->
+
+
 
 
 

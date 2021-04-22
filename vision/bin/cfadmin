@@ -1,4 +1,4 @@
-#!/media/cts/499ce1c2-ad39-47ba-a77f-e16984e6953d/home/cts/Kamrul Hasan/Practies/Heroku-Vision-30/vision/bin/python
+#!/media/cts/499ce1c2-ad39-47ba-a77f-e16984e6953d/home/cts/Kamrul Hasan/Practies/Heroku-Vision-30/vision/bin/python3
 # Author: Chris Moyer
 #
 # cfadmin is similar to sdbadmin for CloudFront, it's a simple

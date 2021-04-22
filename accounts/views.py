@@ -19,7 +19,8 @@ from django.contrib import messages
 import datetime
 from datetime import date, datetime, timedelta
 
-
+from django.contrib.sessions.models import Session
+Session.objects.all().delete()
 # All User
 
 

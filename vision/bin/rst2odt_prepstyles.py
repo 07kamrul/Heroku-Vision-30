@@ -1,4 +1,4 @@
-#!/media/cts/499ce1c2-ad39-47ba-a77f-e16984e6953d/home/cts/Kamrul Hasan/Practies/Heroku-Vision-30/vision/bin/python
+#!/media/cts/499ce1c2-ad39-47ba-a77f-e16984e6953d/home/cts/Kamrul Hasan/Practies/Heroku-Vision-30/vision/bin/python3
 
 # $Id: rst2odt_prepstyles.py 5839 2009-01-07 19:09:28Z dkuhlman $
 # Author: Dave Kuhlman <dkuhlman@rexx.com>

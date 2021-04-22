@@ -1,4 +1,4 @@
-#!/media/cts/499ce1c2-ad39-47ba-a77f-e16984e6953d/home/cts/Kamrul Hasan/Practies/Heroku-Vision-30/vision/bin/python
+#!/media/cts/499ce1c2-ad39-47ba-a77f-e16984e6953d/home/cts/Kamrul Hasan/Practies/Heroku-Vision-30/vision/bin/python3
 
 # $Id: rst2s5.py 4564 2006-05-21 20:44:42Z wiemann $
 # Author: Chris Liechti <cliechti@gmx.net>

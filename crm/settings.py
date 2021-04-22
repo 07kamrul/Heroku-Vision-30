@@ -38,7 +38,7 @@ INSTALLED_APPS = [
 
     'accounts.apps.AccountsConfig',
 
-    # 'django_crontab',
+    'django_crontab',
 
 ]
 
@@ -151,3 +151,10 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+
+CRONJOBS = [
+    ('*/1 * * * *','accounts.cron.cronJob', '>> /tmp/scheduled_job.log'),
+]
+
+CRONTAB_COMMAND_SUFFIX = '2>&1'
