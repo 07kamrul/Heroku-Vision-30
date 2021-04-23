@@ -208,6 +208,7 @@ def home(request):
 # Individual Profile
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
+
 def profile(request, pk_test):
     profile = Profile.objects.get(id=pk_test)
 
@@ -262,23 +263,6 @@ def amounts(request):
     return render(request, 'accounts/amounts.html', context)
 
 
-# Individual Amounts History
-@login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
-def individualAmounts(request, pk):
-    profile = Profile.objects.get(id=pk)
-
-    # total_amount = profile.amount_set.aggregate(amount=Sum('amount'))
-
-    amountprofile = profile.amount_set.all().order_by('date').reverse()
-
-    total_amount = sum([item.amount for item in amountprofile])
-
-    context = {'profile': profile, 'total_amount': total_amount, 'amountprofile': amountprofile}
-
-    return render(request, 'accounts/individualAmount.html', context)
-
-
 # Pending Amount History
 @login_required(login_url='login')
 def pendingAmounts(request):
@@ -299,10 +283,27 @@ def pendingAmounts(request):
 
         return render(request, 'accounts/pending_amount.html', context)
 
+# Individual Amounts History
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def individualAmounts(request, pk):
+    profile = Profile.objects.get(id=pk)
+
+    # total_amount = profile.amount_set.aggregate(amount=Sum('amount'))
+
+    amountprofile = profile.amount_set.all().order_by('date').reverse()
+
+    total_amount = sum([item.amount for item in amountprofile])
+
+    context = {'profile': profile, 'total_amount': total_amount, 'amountprofile': amountprofile}
+
+    return render(request, 'accounts/individualAmount.html', context)
+
+
 
 # Individual Pending Amount History
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+# @allowed_users(allowed_roles=['admin'])
 def individualPendingAmounts(request, pk):
     profile = Profile.objects.get(id=pk)
 
@@ -330,7 +331,7 @@ def individualPendingAmounts(request, pk):
 
 # Individual Complete Amount History
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+# @allowed_users(allowed_roles=['admin'])
 def individualCompleteAmounts(request, pk):
     profile = Profile.objects.get(id=pk)
 
