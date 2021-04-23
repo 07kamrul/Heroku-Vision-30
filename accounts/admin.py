@@ -5,7 +5,8 @@ from django.contrib import admin
 from .models import *
 
 admin.site.register(Profile)
-
 admin.site.register(Member)
 admin.site.register(Amount)
 admin.site.register(Deposite)
+admin.site.register(TotalCost)
+admin.site.register(Test)

@@ -31,6 +31,7 @@ urlpatterns = [
     # Amount
     # --------------------------------------------------------------------
     path('amounts/', views.amounts, name="amounts"),
+    path('pending_amount/', views.pendingAmounts, name="pending_amount"),
     path('create_amount/', views.createAmount, name="create_amount"),
     path('view_amount/<str:pk>/', views.viewAmount, name="view_amount"),
     path('update_amount/<str:pk>/', views.updateAmount, name="update_amount"),
@@ -39,7 +40,6 @@ urlpatterns = [
     # Individual Amount
     # --------------------------------------------------------------------
     path('individual_amount/<str:pk>/', views.individualAmounts, name="individual_amount"),
-    path('pending_amount/', views.pendingAmounts, name="pending_amount"),
     path('individual_pending_amount/<str:pk>/', views.individualPendingAmounts, name="individual_pending_amount"),
     path('individual_complete_amount/<str:pk>/', views.individualCompleteAmounts, name="individual_complete_amount"),
     # --------------------------------------------------------------------

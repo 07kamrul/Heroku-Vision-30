@@ -1,3 +1,5 @@
+from .models import Test
+
 def cronJob():
-    print("Hey Cron job")
+    Test.objects.create(title='Test')
 

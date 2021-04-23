@@ -154,7 +154,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 
 CRONJOBS = [
-    ('*/1 * * * *','accounts.cron.cronJob', '>> /tmp/scheduled_job.log'),
+    ('*/1 * * * *','accounts.cron.cronJob'),
 ]
-
-CRONTAB_COMMAND_SUFFIX = '2>&1'
