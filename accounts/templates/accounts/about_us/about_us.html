@@ -1,0 +1,36 @@
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+
+
+<br>
+
+
+<div class="container">
+    <div class="center">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+
+            <ul class="list-group list-group-flush">
+
+                {% for au in aboutUs %}
+                <div>
+
+                    <textarea class="form-control" rows="4" cols="80" readonly="readonly">
+                    {{au}}
+                    </textarea>
+
+                    <a href="#" class="btn btn-outline-info btn-md float-left">Edit</a>
+                    <a href="#" class="btn btn-outline-danger btn-md float-right">Delete</a>
+                </div>
+                <hr>
+
+
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

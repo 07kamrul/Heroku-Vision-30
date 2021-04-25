@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, Textarea
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User, Group
 from django import forms
@@ -22,7 +22,7 @@ class AmountForm(ModelForm):
 class CreateAmountForm(ModelForm):
     class Meta:
         model = Amount
-        fields = ['profile', 'date', 'amount', 'status','diposite_slip']
+        fields = ['profile', 'date', 'amount', 'status', 'diposite_slip']
 
 
 class CreateUserForm(UserCreationForm):
@@ -58,13 +58,16 @@ class DepositeForm(ModelForm):
 class PersonalInformationForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['profile_pic','father_name', 'mother_name', 'nid', 'phone', 'email', 'marital_status', 'occupation', 'designation',
+        fields = ['profile_pic', 'father_name', 'mother_name', 'nid', 'phone', 'email', 'marital_status', 'occupation',
+                  'designation',
                   'company', 'permanent_address', 'present_address']
+
 
 class PictureForm(ModelForm):
     class Meta:
         model = Profile
         fields = ['profile_pic']
+
 
 class NomineeInformationForm(ModelForm):
     class Meta:
@@ -78,3 +81,36 @@ class BankInformationForm(ModelForm):
     class Meta:
         model = Profile
         fields = ['account_no', 'bank_name', 'branch_address']
+
+
+class AboutUsForm(forms.ModelForm):
+    class Meta:
+        model = AboutUs
+        fields = '__all__'
+        widgets = {
+            'descriptions': forms.Textarea(attrs={'class': 'textarea', 'cols': 30, 'rows': 5,}),
+        }
+
+
+class TermsConditionsForm(ModelForm):
+    class Meta:
+        model = TermsConditions
+        fields = '__all__'
+
+
+class GalleryForm(ModelForm):
+    class Meta:
+        model = Gallery
+        fields = '__all__'
+
+
+class VisionForm(ModelForm):
+    class Meta:
+        model = Vision
+        fields = '__all__'
+
+
+class SliderForm(ModelForm):
+    class Meta:
+        model = Slider
+        fields = '__all__'

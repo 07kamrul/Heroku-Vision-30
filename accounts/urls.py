@@ -62,4 +62,42 @@ urlpatterns = [
 
     path('settings/<str:pk>/', views.accountSettings, name="settings"),
 
+    # About Us
+    # --------------------------------------------------------------------
+    path('about_us/', views.aboutUs, name="about_us"),
+    path('create_about_us/', views.createAboutUs, name="create_about_us"),
+    path('edit_about_us/<str:pk>/', views.editAboutUs, name="edit_about_us"),
+    path('delete_about_us/<str:pk>/', views.deleteAboutUs, name="delete_about_us"),
+    # --------------------------------------------------------------------
+
+    # Vision
+    # --------------------------------------------------------------------
+    path('vision/', views.vision, name="vision"),
+    path('create_vision/', views.createVision, name="create_vision"),
+    path('edit_vision/<str:pk>/', views.editVision, name="edit_vision"),
+    path('delete_vision/<str:pk>/', views.deleteVision, name="delete_vision"),
+    # --------------------------------------------------------------------
+
+    # Terms and Conditions
+    # --------------------------------------------------------------------
+    path('terms_conditions/', views.termsConditions, name="terms_conditions"),
+    path('create_terms_conditions/', views.createTermsConditions, name="create_terms_conditions"),
+    path('edit_terms_conditions/<str:pk>/', views.editTermsConditions, name="edit_terms_conditions"),
+    path('delete_terms_conditions/<str:pk>/', views.deleteTermsConditions, name="delete_terms_conditions"),
+    # --------------------------------------------------------------------
+
+    # Gallery
+    # --------------------------------------------------------------------
+    path('gallery/', views.gallery, name="gallery"),
+    path('create_gallery/', views.createGallery, name="create_gallery"),
+    path('edit_gallery/<str:pk>/', views.editGallery, name="edit_gallery"),
+    path('delete_gallery/<str:pk>/', views.deleteGallery, name="delete_gallery"),
+    # --------------------------------------------------------------------
+
+    # Slider
+    # --------------------------------------------------------------------
+    path('create_slider/', views.createSlider, name="create_slider"),
+    path('delete_slider/<str:pk>/', views.deleteSlider, name="delete_slider"),
+    # --------------------------------------------------------------------
+
 ]

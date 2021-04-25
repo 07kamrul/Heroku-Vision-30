@@ -29,6 +29,13 @@
     <div class="col-md-6">
         <h5>About us:</h5>
         <div class="shadow p-3 mb-5 bg-white rounded">
+            {% for au in about_us %}
+
+            <textarea class="form-control" rows="2" cols="50" readonly="readonly">
+                    {{au}}
+            </textarea>
+            {% endfor %}
+            <center><h4><a href="{% url 'about_us' %}" style="color:black;">Load more...</a></h4></center>
 
         </div>
     </div>
@@ -41,6 +48,13 @@
     <div class="col-md-6">
         <h5>Vision:</h5>
         <div class="shadow p-3 mb-5 bg-white rounded">
+            <ul class="list-group">
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Morbi leo risus</li>
+                <li class="list-group-item">Porta ac consectetur ac</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+            <center><h4><a href="{% url 'vision' %}" style="color:black;">Load more...</a></h4></center>
 
         </div>
     </div>
@@ -48,7 +62,7 @@
     <div class="col-md-6">
         <h5>Pending Amount:</h5>
         <div class="shadow p-3 mb-5 bg-white rounded">
-            <table class="table table-sm table-striped table-hover">
+            <table class="table table-sm table-striped table-hover" id="datatable">
                 <thead class="thead-dark">
                 <tr>
                     <th>Payment Date</th>
@@ -93,50 +107,50 @@
         <div class="col-md">
             <center><h5>LAST Month Amounts Details</h5></center>
             <div class="shadow p-3 mb-5 bg-white rounded">
-                <table class="table table-sm table-striped table-hover">
+                <table class="table table-sm table-striped table-hover" id="datatable">
 
                     <thead class="thead-dark">
-                        <tr>
-                            <th>Payment Date</th>
-                            <th>Member's Name</th>
-                            <th>Total Amount</th>
-                            <th>Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                    <tr>
+                        <th>Payment Date</th>
+                        <th>Member's Name</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-                        {% for a in amount %}
+                    {% for a in last_amount %}
 
-                        {% if a.status == 'Pending' %}
+                    {% if a.status == 'Pending' %}
 
-                        <tr class="table-danger">
-                            <td>{{a.date}}</td>
-                            <td>{{a.profile.name}}</td>
-                            <td>{{a.amount}}</td>
-                            <td>{{a.status}}</td>
-                        </tr>
+                    <tr class="table-danger">
+                        <td>{{a.date}}</td>
+                        <td>{{a.profile.name}}</td>
+                        <td>{{a.amount}}</td>
+                        <td>{{a.status}}</td>
+                    </tr>
 
-                        {% else %}
+                    {% else %}
 
-                        <tr class="table-success">
-                            <td>{{a.date}}</td>
-                            <td>{{a.profile.name}}</td>
-                            <td>{{a.amount}}</td>
-                            <td>{{a.status}}</td>
-                        </tr>
-                        {% endif%}
+                    <tr class="table-success">
+                        <td>{{a.date}}</td>
+                        <td>{{a.profile.name}}</td>
+                        <td>{{a.amount}}</td>
+                        <td>{{a.status}}</td>
+                    </tr>
+                    {% endif%}
 
-                        {% endfor %}
-                        </tbody>
+                    {% endfor %}
+                    </tbody>
 
-                        <tfoot class="thead-dark">
+                    <tfoot class="thead-dark">
 
-                        <tr>
-                            <th>Payment Date</th>
-                            <th>Member's Name</th>
-                            <th>Amount: {{total_amount}}</th>
-                            <th>Status</th>
-                        </tr>
+                    <tr>
+                        <th>Payment Date</th>
+                        <th>Member's Name</th>
+                        <th>Amount: {{total_amount}}</th>
+                        <th>Status</th>
+                    </tr>
                     </tfoot>
                 </table>
                 <center><h4><a href="amounts/" style="color:black;">See more...</a></h4></center>
@@ -144,4 +158,13 @@
         </div>
     </div>
 </div>
+
+<script>
+     $('#datatable').DataTable();
+
+
+
+
+
+</script>
 {% endblock content %}

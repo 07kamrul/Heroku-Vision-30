@@ -1,0 +1,33 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+
+<br>
+<div class="container">
+    <div class="row center">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h3 class="text-center">Edit Description</h3>
+
+
+                <hr>
+                <div class="form-group">
+                    <label for="descriptions">Review of W3Schools:</label>
+
+                    <textarea id="descriptions" name="descriptions" rows="4" cols="50">
+                    At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
+                    </textarea>
+                </div>
+
+                <hr>
+                <input type="submit" name="Submit" class="btn btn-success btn-lg">
+                {{form.errors}}
+
+            </form>
+        </div>
+    </div>
+
+</div>
+<br>
+{% endblock %}

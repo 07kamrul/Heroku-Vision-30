@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
+from django.db.models.fields.files import ImageFieldFile, FileField
 
 from datetime import datetime, date
 from django.utils import timezone
@@ -160,11 +161,36 @@ class Deposite(models.Model):
         return self.profile.name
 
 
+class TermsConditions(models.Model):
+    point = models.CharField(max_length=50, default="*--", null=True, blank=True)
+    conditions = models.CharField(max_length=300, null=True, blank=True)
+
+    def __str__(self):
+        return self.conditions
+
+class Vision(models.Model):
+    point = models.CharField(max_length=50, default="*--", null=True, blank=True)
+    vision = models.CharField(max_length=300, null=True, blank=True)
+
+    def __str__(self):
+        return self.vision
+
+class AboutUs(models.Model):
+    descriptions = models.CharField(max_length=1000, null=True, blank=True)
+    def __str__(self):
+        return self.descriptions
 
 
-class Test(models.Model):
-    title = models.CharField(max_length=200, null=True, blank=True)
+class Gallery(models.Model):
+    title = models.CharField(max_length=500, null=True, blank=True)
+    image = models.ImageField(upload_to='images/gallery/',null=True, blank=True)
 
     def __str__(self):
         return self.title
 
+class Slider(models.Model):
+    title = models.CharField(max_length=50, null=True, blank=True)
+    slide_image = models.ImageField(upload_to='images/slider/',null=True, blank=True)
+
+    def __str__(self):
+        return self.title

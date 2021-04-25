@@ -1,7 +1,19 @@
 {% extends 'accounts/main.html' %}
 
 {% block content %}
+<style>
+	.profile-pic{
+		max-width: 100px;
+		max-height: 100px;
+		margin: 0 auto;
+		border-radius: 50%;
+	}
 
+
+
+
+
+</style>
 <br>
 
 <div class="card-deck">
@@ -52,7 +64,7 @@
                     {% if request.user.is_staff %}
                     <td><a class="btn btn-sm btn-info" href="{% url 'profile' p.profile_id %}">View</a></td>
                     {%else%}
-                    <img src="{{p.profile_pic.url}}" width="120" height="25">
+                    <td><img src="{{p.profile_pic.url}}" class="profile-pic"></td>
                     {%endif%}
                     <td>{{p.name}}</td>
                     <td>{{p.joining_date}}</td>

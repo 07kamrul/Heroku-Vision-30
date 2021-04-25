@@ -20,7 +20,10 @@ import datetime
 from datetime import date, datetime, timedelta
 
 from django.contrib.sessions.models import Session
+
 Session.objects.all().delete()
+
+
 # All User
 
 
@@ -185,6 +188,14 @@ def home(request):
 
     amount = Amount.objects.all().order_by('date').reverse()
 
+    last_amount = Amount.objects.all().order_by('date').reverse()[:30]
+    print("***********About us**********")
+    print(last_amount)
+    # amount = Amount.objects.all().order_by('-id').reverse()[:5][::-1]
+
+    # about_us = AboutUs.objects.all()
+    about_us = AboutUs.objects.all().order_by('-id')[:3][::-1]
+
     pending = amount.filter(status='Pending')
     pendingCount = amount.filter(status='Pending').count()
     total_pending_amount = sum([item.amount for item in pending])
@@ -199,8 +210,8 @@ def home(request):
 
     context = {'profile': profile, 'total_amount': total_amount, 'total_member': total_member, 'amount': amount,
                'total_complete_amount': total_complete_amount, 'total_pending_amount': total_pending_amount,
-               'completeCount': completeCount, 'pendingCount': pendingCount,
-               'pendingAmountFunction': pendingAmountFunction}
+               'completeCount': completeCount, 'pendingCount': pendingCount, 'last_amount': last_amount,
+               'pendingAmountFunction': pendingAmountFunction, 'about_us': about_us}
 
     return render(request, 'accounts/dashboard.html', context)
 
@@ -208,7 +219,6 @@ def home(request):
 # Individual Profile
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
-
 def profile(request, pk_test):
     profile = Profile.objects.get(id=pk_test)
 
@@ -283,6 +293,7 @@ def pendingAmounts(request):
 
         return render(request, 'accounts/pending_amount.html', context)
 
+
 # Individual Amounts History
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
@@ -298,7 +309,6 @@ def individualAmounts(request, pk):
     context = {'profile': profile, 'total_amount': total_amount, 'amountprofile': amountprofile}
 
     return render(request, 'accounts/individualAmount.html', context)
-
 
 
 # Individual Pending Amount History
@@ -373,6 +383,7 @@ def members(request):
             name = p.name
             phone = p.phone
             joining_date = p.joining_date
+            profile_pic = p.profile_pic
 
             amounts = p.amount_set.all()
             total_amount = sum([item.amount for item in amounts])
@@ -387,7 +398,7 @@ def members(request):
 
             context = {'profile': profile, 'profile_id': profile_id, 'name': name, 'joining_date': joining_date,
                        'phone': phone, 'total_pending_count': total_pending_count, 'total_pending': total_pending,
-                       'total_complete': total_complete, 'id': i}
+                       'total_complete': total_complete, 'id': i, 'profile_pic': profile_pic}
 
             habijabi.append(context)
 
@@ -476,7 +487,7 @@ def updatebankinformation(request, pk):
 
 
 @login_required(login_url='login')
-def accountSettings(request,pk):
+def accountSettings(request, pk):
     # profile = request.user.profile
     # form = CreateUserForm(instance=profile)
     #
@@ -484,7 +495,6 @@ def accountSettings(request,pk):
     #     form = CreateUserForm(request.POST, request.FILES, instance=profile)
     #     if form.is_valid():
     #         form.save()
-
 
     # profile = request.user.profile
     profile = Profile.objects.get(id=pk)
@@ -509,7 +519,7 @@ def createAmount(request):
     form = CreateAmountForm()
 
     if request.method == 'POST':
-        form = CreateAmountForm(request.POST,request.FILES)
+        form = CreateAmountForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, "Successfully added!")
@@ -522,26 +532,7 @@ def createAmount(request):
     return render(request, 'accounts/create_amount.html', context)
 
 
-
-# def AutoAmountGenerate(request):
-#     form = CreateAmountForm()
-#     profile = Profile.objects.all()
-#     for p in profile:
-#         print(p.name)
-#
-#     # if request.method == 'POST':
-#     #     form = CreateAmountForm(request.POST)
-#     #     if form.is_valid():
-#     #         form.save()
-#     #
-#     #         return redirect('/amounts/')
-#     #
-#     # context = {'form': form}
-#     #
-#     return render(request, 'accounts/autoamountgenerate.html')
-#
-
-
+@login_required(login_url='login')
 def viewAmount(request, pk):
     amount = Amount.objects.get(id=pk)
     print(amount)
@@ -561,7 +552,7 @@ def viewAmount(request, pk):
     return render(request, 'accounts/view_amount.html', context)
 
 
-
+@login_required(login_url='login')
 def updateAmount(request, pk):
     amount = Amount.objects.get(id=pk)
 
@@ -581,6 +572,7 @@ def updateAmount(request, pk):
     return render(request, 'accounts/update_amount.html', context)
 
 
+@login_required(login_url='login')
 def deleteAmount(request, pk):
     amount = Amount.objects.get(id=pk)
 
@@ -599,6 +591,7 @@ def settings(request):
     return render(request, 'accounts/settings.html', context)
 
 
+@login_required(login_url='login')
 def userProfile(request):
     context = {}
     return render(request, 'accounts/user_profile.html', context)
@@ -613,3 +606,156 @@ def totalCost(request):
     context = {'cost': cost, 'total_cost': total_cost}
 
     return render(request, 'accounts/total_cost.html', context)
+
+
+@login_required(login_url='login')
+def aboutUs(request):
+    aboutUs = AboutUs.objects.all()
+    context = {'aboutUs': aboutUs}
+
+    return render(request, 'accounts/about_us/about_us.html', context)
+
+
+@login_required(login_url='login')
+def createAboutUs(request):
+    form = AboutUsForm()
+
+    if request.method == 'POST':
+        form = AboutUsForm(request.POST)
+        if form.is_valid():
+            create_aboutus = form.save()
+            description = form.cleaned_data.get('description')
+            create_aboutus = authenticate(request, description=description)
+            return redirect('about_us')
+
+    context = {'form': form}
+
+    return render(request, 'accounts/about_us/create_about_us.html', context)
+
+
+@login_required(login_url='login')
+def editAboutUs(request):
+    aboutUs = AboutUs.objects.all()
+    context = {'aboutUs': aboutUs}
+
+    return render(request, 'accounts/about_us/edit_about_us.html', context)
+
+
+@login_required(login_url='login')
+def deleteAboutUs(request):
+    aboutUs = AboutUs.objects.all()
+    context = {'aboutUs': aboutUs}
+
+    return render(request, 'accounts/about_us/delete_about_us.html', context)
+
+
+@login_required(login_url='login')
+def vision(request):
+    vision = Vision.objects.all()
+    context = {'vision': vision}
+
+    return render(request, 'accounts/about_us/about_us.html', context)
+
+
+@login_required(login_url='login')
+def createVision(request):
+    vision = Vision.objects.all()
+    context = {'vision': vision}
+
+    return render(request, 'accounts/about_us/create_vision.html', context)
+
+
+@login_required(login_url='login')
+def editVision(request):
+    vision = Vision.objects.all()
+    context = {'vision': vision}
+
+    return render(request, 'accounts/about_us/edit_vision.html', context)
+
+
+@login_required(login_url='login')
+def deleteVision(request):
+    vision = Vision.objects.all()
+    context = {'vision': vision}
+
+    return render(request, 'accounts/about_us/delete_vision.html', context)
+
+
+@login_required(login_url='login')
+def termsConditions(request):
+    termsConditions = TermsConditions.objects.all()
+    context = {'termsConditions': termsConditions}
+
+    return render(request, 'accounts/terms_conditions/terms_conditions.html', context)
+
+
+@login_required(login_url='login')
+def createTermsConditions(request):
+    termsConditions = TermsConditions.objects.all()
+    context = {'termsConditions': termsConditions}
+
+    return render(request, 'accounts/terms_conditions/create_terms_conditions.html', context)
+
+
+@login_required(login_url='login')
+def editTermsConditions(request):
+    termsConditions = TermsConditions.objects.all()
+    context = {'termsConditions': termsConditions}
+
+    return render(request, 'accounts/terms_conditions/edit_terms_conditions.html', context)
+
+
+@login_required(login_url='login')
+def deleteTermsConditions(request):
+    termsConditions = TermsConditions.objects.all()
+    context = {'termsConditions': termsConditions}
+
+    return render(request, 'accounts/terms_conditions/delete_terms_conditions.html', context)
+
+
+@login_required(login_url='login')
+def gallery(request):
+    gallery = Gallery.objects.all()
+    context = {'gallery': gallery}
+
+    return render(request, 'accounts/gallery/gallery.html', context)
+
+
+@login_required(login_url='login')
+def createGallery(request):
+    gallery = Gallery.objects.all()
+    context = {'gallery': gallery}
+
+    return render(request, 'accounts/gallery/create_gallery.html', context)
+
+
+@login_required(login_url='login')
+def editGallery(request):
+    gallery = Gallery.objects.all()
+    context = {'gallery': gallery}
+
+    return render(request, 'accounts/gallery/edit_gallery.html', context)
+
+
+@login_required(login_url='login')
+def deleteGallery(request):
+    gallery = Gallery.objects.all()
+    context = {'gallery': gallery}
+
+    return render(request, 'accounts/gallery/delete_gallery.html', context)
+
+
+@login_required(login_url='login')
+def createSlider(request):
+    gallery = Gallery.objects.all()
+    context = {'gallery': gallery}
+
+    return render(request, 'accounts/gallery/create_slider.html', context)
+
+
+@login_required(login_url='login')
+def deleteSlider(request):
+    slider = Slider.objects.all()
+    context = {'slider': slider}
+
+    return render(request, 'accounts/gallery/delete_slider.html', context)

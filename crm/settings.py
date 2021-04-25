@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'accounts.apps.AccountsConfig',
-
     'django_crontab',
-
+    'widget_tweaks',
+    'ckeditor',
 ]
 
 # CRONJOBS = [

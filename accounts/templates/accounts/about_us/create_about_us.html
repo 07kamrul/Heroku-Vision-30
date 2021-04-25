@@ -1,0 +1,34 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+{% load widget_tweaks %}
+
+<br>
+
+<div class="row justify-content-center align-self-center">
+    <div class="col-md-6">
+        <div class="shadow p-3 mb-5 bg-white rounded" align="center">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <!--
+                                {{ form.media }}
+                -->
+                <h3>Create About Us</h3>
+                <hr>
+                <div class="field">
+                    <label class="label">Descriptions:</label>
+                    <div class="control">
+                        {% render_field form.descriptions row="3" col="5" placeholder="Enter your descriptions... " class="textarea" %}
+
+                    </div>
+                </div>
+                <hr>
+                <input type="submit" name="Submit" class="btn btn-success btn-lg">
+                {{form.errors}}
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
