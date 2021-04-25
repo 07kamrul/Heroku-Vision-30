@@ -162,7 +162,6 @@ class Deposite(models.Model):
 
 
 class TermsConditions(models.Model):
-    point = models.CharField(max_length=50, default="*--", null=True, blank=True)
     conditions = models.CharField(max_length=300, null=True, blank=True)
 
     def __str__(self):

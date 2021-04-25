@@ -105,6 +105,9 @@ class TermsConditionsForm(ModelForm):
     class Meta:
         model = TermsConditions
         fields = '__all__'
+        widgets = {
+            'conditions': forms.Textarea(attrs={'class': 'textarea', 'cols': 30, 'rows': 5, }),
+        }
 
 
 class GalleryForm(ModelForm):

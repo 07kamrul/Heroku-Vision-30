@@ -193,6 +193,7 @@ def home(request):
     about_us = AboutUs.objects.all().order_by('-id')[:3][::-1]
 
     vision = Vision.objects.all().order_by('-id')[:5][::-1]
+    transCondition = TermsConditions.objects.all().order_by('-id')[:5][::-1]
 
     pending = amount.filter(status='Pending')
     pendingCount = amount.filter(status='Pending').count()
@@ -209,7 +210,7 @@ def home(request):
     context = {'profile': profile, 'total_amount': total_amount, 'total_member': total_member, 'amount': amount,
                'total_complete_amount': total_complete_amount, 'total_pending_amount': total_pending_amount,
                'completeCount': completeCount, 'pendingCount': pendingCount, 'last_amount': last_amount,
-               'pendingAmountFunction': pendingAmountFunction, 'about_us': about_us, 'vision': vision}
+               'pendingAmountFunction': pendingAmountFunction, 'about_us': about_us, 'vision': vision, 'transCondition':transCondition}
 
     return render(request, 'accounts/dashboard.html', context)
 
@@ -715,23 +716,44 @@ def termsConditions(request):
 
 @login_required(login_url='login')
 def createTermsConditions(request):
-    termsConditions = TermsConditions.objects.all()
-    context = {'termsConditions': termsConditions}
+    form = TermsConditionsForm()
 
+    if request.method == 'POST':
+        form = TermsConditionsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('terms_conditions')
+
+    context = {'form': form}
     return render(request, 'accounts/terms_conditions/create_terms_conditions.html', context)
 
 
 @login_required(login_url='login')
-def editTermsConditions(request):
-    termsConditions = TermsConditions.objects.all()
-    context = {'termsConditions': termsConditions}
+def editTermsConditions(request,pk):
+    termsConditions = TermsConditions.objects.get(id=pk)
+
+    form = TermsConditionsForm(instance=termsConditions)
+
+    if request.method == 'POST':
+        form = VisionForm(request.POST, instance=termsConditions)
+
+        if form.is_valid():
+            form.save()
+            return redirect('terms_conditions')
+
+    context = {'form': form}
 
     return render(request, 'accounts/terms_conditions/edit_terms_conditions.html', context)
 
 
 @login_required(login_url='login')
-def deleteTermsConditions(request):
-    termsConditions = TermsConditions.objects.all()
+def deleteTermsConditions(request, pk):
+    termsConditions = TermsConditions.objects.get(id=pk)
+
+    if request.method == 'POST':
+        termsConditions.delete()
+        return redirect('terms_conditions')
+
     context = {'termsConditions': termsConditions}
 
     return render(request, 'accounts/terms_conditions/delete_terms_conditions.html', context)

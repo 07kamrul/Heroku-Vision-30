@@ -1,10 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'accounts/main.html' %}
 
-</body>
-</html>
+{% block content %}
+
+
+<br>
+
+
+<div class="container">
+    <div class="center">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+
+            <ul class="list-group list-group-flush">
+                <h2 class="text-center">Terms & Conditions</h2>
+
+                {% for tc in termsConditions %}
+
+
+                <div>
+                    <textarea class="form-control" rows="3" cols="80" readonly="readonly">
+                    {{tc}}
+                    </textarea>
+                    {% if request.user.is_staff %}
+
+                    <a href="{% url 'edit_terms_conditions' tc.id %}" class="btn btn-outline-info btn-md float-left">Edit</a>
+                    <a href="{% url 'delete_terms_conditions' tc.id %}"
+                       class="btn btn-outline-danger btn-md float-right">Delete</a>
+                    {% endif %}
+                </div>
+                <hr>
+
+
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
