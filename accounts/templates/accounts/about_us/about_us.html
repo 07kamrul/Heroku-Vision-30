@@ -11,6 +11,7 @@
         <div class="shadow p-3 mb-5 bg-white rounded">
 
             <ul class="list-group list-group-flush">
+                <h2 class="text-center">About Us</h2>
 
                 {% for au in aboutUs %}
                 <div>
@@ -18,9 +19,12 @@
                     <textarea class="form-control" rows="4" cols="80" readonly="readonly">
                     {{au}}
                     </textarea>
+                    {% if request.user.is_staff %}
 
-                    <a href="#" class="btn btn-outline-info btn-md float-left">Edit</a>
-                    <a href="#" class="btn btn-outline-danger btn-md float-right">Delete</a>
+                    <a href="{% url 'edit_about_us' au.id %}" class="btn btn-outline-info btn-md float-left">Edit</a>
+                    <a href="{% url 'delete_about_us' au.id %}"
+                       class="btn btn-outline-danger btn-md float-right">Delete</a>
+                    {% endif %}
                 </div>
                 <hr>
 

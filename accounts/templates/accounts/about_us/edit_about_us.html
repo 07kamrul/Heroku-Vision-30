@@ -1,33 +1,48 @@
 {% extends 'accounts/main.html' %}
 {% load static %}
 {% block content %}
+{% load widget_tweaks %}
 
 <br>
-<div class="container">
-    <div class="row center">
-        <div class="shadow p-3 mb-5 bg-white rounded">
-            <form action="" method="POST" enctype="multipart/form-data">
+
+<div class="row justify-content-center align-self-center">
+    <div class="col-md-6">
+        <div class="shadow p-3 mb-5 bg-white rounded" align="center">
+            <form action="" method="POST">
                 {% csrf_token %}
-                <h3 class="text-center">Edit Description</h3>
-
-
+                <h3>Edit About Us</h3>
                 <hr>
-                <div class="form-group">
-                    <label for="descriptions">Review of W3Schools:</label>
+                <div class="field">
+                    <label class="label">Descriptions:</label>
+                    <div class="control">
+                        {% render_field form.descriptions row="3" col="5" placeholder="Enter your descriptions... " class="textarea" %}
 
-                    <textarea id="descriptions" name="descriptions" rows="4" cols="50">
-                    At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
-                    </textarea>
+                    </div>
                 </div>
-
                 <hr>
-                <input type="submit" name="Submit" class="btn btn-success btn-lg">
-                {{form.errors}}
+                <div>
+                    <h5 class="text-center"> Are you want to Update this descriptions? </h5>
+   &nbsp;
+                            &nbsp;
+                            &nbsp;
 
+                    <div class="row ">
+                        <div class="col">
+                            <a class="btn btn-danger btn-lg btn-block" href="{% url 'about_us' %}">Cancel</a>
+
+                        </div>
+                        <div class="col">
+                            <input type="submit" class="btn btn-success btn-lg btn-block">
+
+                        </div>
+                    </div>
+                </div>
+<!--                <input type="submit" name="Submit" class="btn btn-success btn-lg">-->
+                {{form.errors}}
             </form>
         </div>
     </div>
-
 </div>
-<br>
+
+
 {% endblock %}

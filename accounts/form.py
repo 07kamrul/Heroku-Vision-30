@@ -88,7 +88,16 @@ class AboutUsForm(forms.ModelForm):
         model = AboutUs
         fields = '__all__'
         widgets = {
-            'descriptions': forms.Textarea(attrs={'class': 'textarea', 'cols': 30, 'rows': 5,}),
+            'descriptions': forms.Textarea(attrs={'class': 'textarea', 'cols': 30, 'rows': 5, }),
+        }
+
+
+class VisionForm(ModelForm):
+    class Meta:
+        model = Vision
+        fields = '__all__'
+        widgets = {
+            'vision': forms.Textarea(attrs={'class': 'textarea', 'cols': 30, 'rows': 5, }),
         }
 
 
@@ -101,12 +110,6 @@ class TermsConditionsForm(ModelForm):
 class GalleryForm(ModelForm):
     class Meta:
         model = Gallery
-        fields = '__all__'
-
-
-class VisionForm(ModelForm):
-    class Meta:
-        model = Vision
         fields = '__all__'
 
 

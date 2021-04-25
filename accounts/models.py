@@ -169,7 +169,6 @@ class TermsConditions(models.Model):
         return self.conditions
 
 class Vision(models.Model):
-    point = models.CharField(max_length=50, default="*--", null=True, blank=True)
     vision = models.CharField(max_length=300, null=True, blank=True)
 
     def __str__(self):

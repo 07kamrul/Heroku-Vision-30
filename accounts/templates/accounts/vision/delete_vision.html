@@ -1,10 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+{% load widget_tweaks %}
 
-</body>
-</html>
+<br>
+
+<div class="row justify-content-center align-self-center">
+    <div class="col-md-6">
+        <div class="shadow p-3 mb-5 bg-white rounded" align="center">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <h3>Delete Vision</h3>
+                <hr>
+                <div class="field">
+                    <label class="label">Vision:</label>
+                    <textarea class="form-control" rows="4" cols="80" readonly="readonly">
+                    {{vision}}
+                    </textarea>
+                </div>
+                <hr>
+                <div>
+                    <h5 class="text-center"> Are you want to Delete this vision? </h5>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+
+                    <div class="row ">
+                        <div class="col">
+                            <a class="btn btn-danger btn-lg btn-block" href="{% url 'vision' %}">Cancel</a>
+
+                        </div>
+                        <div class="col">
+                            <input type="submit" class="btn btn-success btn-lg btn-block">
+
+                        </div>
+                    </div>
+                </div>
+                <!--                <input type="submit" name="Submit" class="btn btn-success btn-lg">-->
+                {{form.errors}}
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

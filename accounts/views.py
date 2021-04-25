@@ -189,12 +189,10 @@ def home(request):
     amount = Amount.objects.all().order_by('date').reverse()
 
     last_amount = Amount.objects.all().order_by('date').reverse()[:30]
-    print("***********About us**********")
-    print(last_amount)
-    # amount = Amount.objects.all().order_by('-id').reverse()[:5][::-1]
 
-    # about_us = AboutUs.objects.all()
     about_us = AboutUs.objects.all().order_by('-id')[:3][::-1]
+
+    vision = Vision.objects.all().order_by('-id')[:5][::-1]
 
     pending = amount.filter(status='Pending')
     pendingCount = amount.filter(status='Pending').count()
@@ -211,7 +209,7 @@ def home(request):
     context = {'profile': profile, 'total_amount': total_amount, 'total_member': total_member, 'amount': amount,
                'total_complete_amount': total_complete_amount, 'total_pending_amount': total_pending_amount,
                'completeCount': completeCount, 'pendingCount': pendingCount, 'last_amount': last_amount,
-               'pendingAmountFunction': pendingAmountFunction, 'about_us': about_us}
+               'pendingAmountFunction': pendingAmountFunction, 'about_us': about_us, 'vision': vision}
 
     return render(request, 'accounts/dashboard.html', context)
 
@@ -488,17 +486,7 @@ def updatebankinformation(request, pk):
 
 @login_required(login_url='login')
 def accountSettings(request, pk):
-    # profile = request.user.profile
-    # form = CreateUserForm(instance=profile)
-    #
-    # if request.method == 'POST':
-    #     form = CreateUserForm(request.POST, request.FILES, instance=profile)
-    #     if form.is_valid():
-    #         form.save()
-
-    # profile = request.user.profile
     profile = Profile.objects.get(id=pk)
-    print(profile)
 
     form = PictureForm(instance=profile)
     if request.method == 'POST':
@@ -515,7 +503,6 @@ def accountSettings(request, pk):
 @login_required(login_url='login')
 # @allowed_users(allowed_roles=['admin'])
 def createAmount(request):
-    # form = AmountForm()
     form = CreateAmountForm()
 
     if request.method == 'POST':
@@ -535,10 +522,7 @@ def createAmount(request):
 @login_required(login_url='login')
 def viewAmount(request, pk):
     amount = Amount.objects.get(id=pk)
-    print(amount)
     form = AmountForm(instance=amount)
-
-    print(type(form))
 
     if request.method == 'POST':
         form = AmountForm(request.POST, request.FILES, instance=amount)
@@ -553,13 +537,11 @@ def viewAmount(request, pk):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def updateAmount(request, pk):
     amount = Amount.objects.get(id=pk)
 
     form = AmountForm(instance=amount)
-
-    print(type(form))
-
     if request.method == 'POST':
         form = AmountForm(request.POST, request.FILES, instance=amount)
 
@@ -573,6 +555,7 @@ def updateAmount(request, pk):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def deleteAmount(request, pk):
     amount = Amount.objects.get(id=pk)
 
@@ -617,6 +600,7 @@ def aboutUs(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def createAboutUs(request):
     form = AboutUsForm()
 
@@ -634,16 +618,32 @@ def createAboutUs(request):
 
 
 @login_required(login_url='login')
-def editAboutUs(request):
-    aboutUs = AboutUs.objects.all()
-    context = {'aboutUs': aboutUs}
+@allowed_users(allowed_roles=['admin'])
+def editAboutUs(request, pk):
+    aboutUs = AboutUs.objects.get(id=pk)
+    form = AboutUsForm(instance=aboutUs)
+
+    if request.method == 'POST':
+        form = AboutUsForm(request.POST, instance=aboutUs)
+
+        if form.is_valid():
+            form.save()
+            return redirect('about_us')
+
+    context = {'form': form, 'aboutUs': aboutUs}
 
     return render(request, 'accounts/about_us/edit_about_us.html', context)
 
 
 @login_required(login_url='login')
-def deleteAboutUs(request):
-    aboutUs = AboutUs.objects.all()
+@allowed_users(allowed_roles=['admin'])
+def deleteAboutUs(request, pk):
+    aboutUs = AboutUs.objects.get(id=pk)
+
+    if request.method == 'POST':
+        aboutUs.delete()
+        return redirect('about_us')
+
     context = {'aboutUs': aboutUs}
 
     return render(request, 'accounts/about_us/delete_about_us.html', context)
@@ -654,31 +654,55 @@ def vision(request):
     vision = Vision.objects.all()
     context = {'vision': vision}
 
-    return render(request, 'accounts/about_us/about_us.html', context)
+    return render(request, 'accounts/vision/vision.html', context)
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def createVision(request):
-    vision = Vision.objects.all()
-    context = {'vision': vision}
+    form = VisionForm()
 
-    return render(request, 'accounts/about_us/create_vision.html', context)
+    if request.method == 'POST':
+        form = VisionForm(request.POST)
+        if form.is_valid():
+            create_vision = form.save()
+            vision = form.cleaned_data.get('vision')
+            create_vision = authenticate(request, vision=vision)
+            return redirect('vision')
+
+    context = {'form': form}
+    return render(request, 'accounts/vision/create_vision.html', context)
 
 
 @login_required(login_url='login')
-def editVision(request):
-    vision = Vision.objects.all()
-    context = {'vision': vision}
+@allowed_users(allowed_roles=['admin'])
+def editVision(request, pk):
+    vision = Vision.objects.get(id=pk)
+    form = VisionForm(instance=vision)
 
-    return render(request, 'accounts/about_us/edit_vision.html', context)
+    if request.method == 'POST':
+        form = VisionForm(request.POST, instance=vision)
+
+        if form.is_valid():
+            form.save()
+            return redirect('vision')
+
+    context = {'form': form, 'vision': vision}
+    return render(request, 'accounts/vision/edit_vision.html', context)
 
 
 @login_required(login_url='login')
-def deleteVision(request):
-    vision = Vision.objects.all()
+@allowed_users(allowed_roles=['admin'])
+def deleteVision(request, pk):
+    vision = Vision.objects.get(id=pk)
+
+    if request.method == 'POST':
+        vision.delete()
+        return redirect('vision')
+
     context = {'vision': vision}
 
-    return render(request, 'accounts/about_us/delete_vision.html', context)
+    return render(request, 'accounts/vision/delete_vision.html', context)
 
 
 @login_required(login_url='login')
