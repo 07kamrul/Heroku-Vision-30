@@ -53,11 +53,13 @@ p {text-align: center;}
 
 
 
+
+
 </style>
 <hr>
 <div class="row">
     <div class="col-md-6">
-        <h5>Admin Panel:</h5>
+        <h5>Admin Panel</h5>
         <div class="shadow p-3 mb-5 bg-white rounded">
             <table class="table table-sm">
                 <thead class="thead-dark">
@@ -77,7 +79,7 @@ p {text-align: center;}
     </div>
 
     <div class="col-md-6">
-        <h5>About us:</h5>
+        <h5>About us</h5>
         <div class="shadow p-3 mb-5 bg-white rounded">
             {% for au in about_us %}
 
@@ -96,10 +98,9 @@ p {text-align: center;}
 <div class="row">
 
     <div class="col-md-6">
-        <h5>Vision:</h5>
+        <h5>Vision</h5>
         <div class="shadow p-3 mb-5 bg-white rounded">
             {% for v in vision %}
-
             <p class="text-justify">
                 {{v}}
             </p>
@@ -110,7 +111,7 @@ p {text-align: center;}
     </div>
 
     <div class="col-md-6">
-        <h5>Pending Amount:</h5>
+        <h5>Pending Amount</h5>
         <div class="shadow p-3 mb-5 bg-white rounded">
             <table class="table table-sm table-striped table-hover" id="datatable">
                 <thead class="thead-dark">
@@ -156,19 +157,20 @@ p {text-align: center;}
 <div class="row shadow p-3 mb-5 bg-white rounded" style="font-family: Arial, Helvetica, sans-serif">
     <div class="row">
         {% for g in gallery %}
-                <div class="column">
-                    <div class="card">
-                        <img class="img-fluid img-thumbnail" src="{{g.image.url}}">
-                        <h3>{{g.title}}</h3>
-                        <p>{{g.descriptions}}</p>
-                        <p>{{g.publish_date}}</p>
-                    </div>
-                </div>
+        <div class="column">
+            <div class="card">
+                <img class="img-fluid img-thumbnail" src="{{g.image.url}}">
+                <h3>{{g.title}}</h3>
+                <p>{{g.descriptions}}</p>
+                <p>{{g.publish_date}}</p>
+            </div>
+        </div>
 
         {% endfor %}
     </div>
+
 </div>
-<center><h4><a href="{% url 'gallery' %}" style="color:black;">See more...</a></h4></center>
+<center><h3><a href="{% url 'gallery' %}" style="color:black;">See more...</a></h3></center>
 
 
 <hr>
@@ -229,7 +231,7 @@ p {text-align: center;}
     </div>
 
     <div class="col-md-6">
-        <h5>Terms & Conditions:</h5>
+        <h5>Terms & Conditions</h5>
         <div class="shadow p-3 mb-5 bg-white rounded">
             {% for tc in transCondition %}
 
@@ -246,6 +248,8 @@ p {text-align: center;}
 
 <script>
      $('#datatable').DataTable();
+
+
 
 
 

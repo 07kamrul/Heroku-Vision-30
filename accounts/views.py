@@ -61,8 +61,8 @@ def allUser(request):
 
 
 # Register
-# @login_required(login_url='login')
-# @allowed_users(allowed_roles=['admin'])
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def registerPage(request):
     form = CreateUserForm()
     if request.method == 'POST':
@@ -189,7 +189,8 @@ def home(request):
     last_amount = Amount.objects.all().order_by('date').reverse()[:30]
     vision = Vision.objects.all().order_by('-id')[:5][::-1]
     transCondition = TermsConditions.objects.all().order_by('-id')[:5][::-1]
-    notice = Notice.objects.all()
+    notice = Notice.objects.all().order_by('-id')[::-1]
+    slider = Slider.objects.all()
 
     total_member = profile.count()
     pending = amount.filter(status='Pending')
@@ -208,7 +209,7 @@ def home(request):
                'total_complete_amount': total_complete_amount, 'total_pending_amount': total_pending_amount,
                'completeCount': completeCount, 'pendingCount': pendingCount, 'last_amount': last_amount,
                'gallery': gallery, 'notice': notice, 'pendingAmountFunction': pendingAmountFunction,
-               'about_us': about_us, 'vision': vision, 'transCondition': transCondition}
+               'about_us': about_us, 'vision': vision, 'transCondition': transCondition, 'slider': slider}
 
     return render(request, 'accounts/dashboard.html', context)
 
@@ -702,7 +703,7 @@ def deleteVision(request, pk):
     return render(request, 'accounts/vision/delete_vision.html', context)
 
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def termsConditions(request):
     termsConditions = TermsConditions.objects.all()
     context = {'termsConditions': termsConditions}
@@ -818,24 +819,6 @@ def deleteGallery(request, pk):
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
-def createSlider(request):
-    gallery = Gallery.objects.all()
-    context = {'gallery': gallery}
-
-    return render(request, 'accounts/gallery/create_slider.html', context)
-
-
-@login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
-def deleteSlider(request):
-    slider = Slider.objects.all()
-    context = {'slider': slider}
-
-    return render(request, 'accounts/gallery/delete_slider.html', context)
-
-
-@login_required(login_url='login')
 def notice(request):
     notice = Notice.objects.all()
     context = {'notice': notice}
@@ -900,3 +883,35 @@ def deleteNotice(request, pk):
     context = {'notice': notice}
 
     return render(request, 'accounts/notice/delete_notice.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def createSlider(request):
+    form = SliderForm()
+
+    if request.method == 'POST':
+        form = SliderForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Successfully added!")
+            return redirect('home')
+        else:
+            messages.error(request, "Please fill in all the fields.")
+    context = {'form': form}
+
+    return render(request, 'accounts/slider/create_slider.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def deleteSlider(request, pk):
+    slider = Gallery.objects.get(id=pk)
+
+    if request.method == 'POST':
+        slider.delete()
+        return redirect('home')
+
+    context = {'slider': slider}
+
+    return render(request, 'accounts/slider/delete_slider.html', context)
