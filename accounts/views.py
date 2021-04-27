@@ -11,6 +11,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
 
 from .decorators import unauthenticated_user, allowed_users, admin_only
+from .form import AdminForm
 from .models import *
 from .form import *
 
@@ -192,6 +193,8 @@ def home(request):
     notice = Notice.objects.all().order_by('-id')[::-1]
     slider = Slider.objects.all()
 
+    admin = profile.filter(is_admin_panel='Yes')
+
     total_member = profile.count()
     pending = amount.filter(status='Pending')
     pendingCount = amount.filter(status='Pending').count()
@@ -209,7 +212,8 @@ def home(request):
                'total_complete_amount': total_complete_amount, 'total_pending_amount': total_pending_amount,
                'completeCount': completeCount, 'pendingCount': pendingCount, 'last_amount': last_amount,
                'gallery': gallery, 'notice': notice, 'pendingAmountFunction': pendingAmountFunction,
-               'about_us': about_us, 'vision': vision, 'transCondition': transCondition, 'slider': slider}
+               'about_us': about_us, 'vision': vision, 'transCondition': transCondition, 'slider': slider,
+               'admin':admin}
 
     return render(request, 'accounts/dashboard.html', context)
 
@@ -219,16 +223,10 @@ def home(request):
 @allowed_users(allowed_roles=['admin'])
 def profile(request, pk_test):
     profile = Profile.objects.get(id=pk_test)
-
-    # total_amount = profile.amount_set.aggregate(amount=Sum('amount'))
-
     amountprofile = profile.amount_set.all()
-
     total_amount = sum([item.amount for item in amountprofile])
-
     pending = amountprofile.filter(status='Pending')
     complete_count = amountprofile.filter(status='Complete').count()
-
     total_pending = amountprofile.filter(status='Pending').count()
 
     if pending:
@@ -485,7 +483,7 @@ def updatebankinformation(request, pk):
 
 
 @login_required(login_url='login')
-def accountSettings(request, pk):
+def changeProfilePicture(request, pk):
     profile = Profile.objects.get(id=pk)
 
     form = PictureForm(instance=profile)
@@ -915,3 +913,21 @@ def deleteSlider(request, pk):
     context = {'slider': slider}
 
     return render(request, 'accounts/slider/delete_slider.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def adminPanel(request,pk):
+    profile = Profile.objects.get(id=pk)
+    form = AdminForm(instance=profile)
+
+    if request.method == 'POST':
+        form = AdminForm(request.POST, request.FILES, instance=profile)
+
+        if form.is_valid():
+            form.save()
+            return redirect('members')
+
+    context = {'form': form,'profile':profile}
+
+    return render(request, 'accounts/admin/add_admin_panel.html', context)

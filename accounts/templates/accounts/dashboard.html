@@ -53,6 +53,15 @@ p {text-align: center;}
 
 
 
+	.admin-pic{
+		max-width: 100px;
+		max-height: 80px;
+		margin: 0 auto;
+		border-radius: 50%;
+	}
+
+
+
 
 
 </style>
@@ -66,14 +75,18 @@ p {text-align: center;}
                 <tr>
                     <th>Profile</th>
                     <th>Admin</th>
+                    <th>Email</th>
                     <th>Phone</th>
                 </tr>
                 </thead>
+                {% for p in admin %}
                 <tr>
-                    <td><a class="btn btn-sm btn-info" href="profile/">View</a></td>
-                    <td>Name</td>
-                    <td>Phone</td>
+                    <td><img src="{{p.profile_pic.url}}" class="admin-pic"></td>
+                    <td>{{p.name}}</td>
+                    <td>{{p.email}}</td>
+                    <td>{{p.phone}}</td>
                 </tr>
+                {% endfor %}
             </table>
         </div>
     </div>
@@ -180,7 +193,7 @@ p {text-align: center;}
     <div class="col-md-6">
         <center><h5>LAST Month Amounts Details</h5></center>
         <div class="shadow p-3 mb-5 bg-white rounded">
-            <table class="table table-sm table-striped table-hover" id="datatable">
+            <table class="table table-sm table-striped table-hover" id="datatable1">
 
                 <thead class="thead-dark">
                 <tr>
@@ -248,6 +261,7 @@ p {text-align: center;}
 
 <script>
      $('#datatable').DataTable();
+     $('#datatable1').DataTable();
 
 
 

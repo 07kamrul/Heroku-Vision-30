@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
 
@@ -52,15 +53,14 @@ urlpatterns = [
     path('depositFeed/', views.depositeFeed, name="depositeFeed"),
     path('create_deposite/', views.createDeposite, name="create_deposite"),
     # --------------------------------------------------------------------
-    #Total Cost
+    # Total Cost
     # --------------------------------------------------------------------
     path('total_cost/', views.totalCost, name="total_cost"),
     # --------------------------------------------------------------------
 
-
     path('', views.home, name="home"),
 
-    path('settings/<str:pk>/', views.accountSettings, name="settings"),
+    path('settings/<str:pk>/', views.changeProfilePicture, name="settings"),
 
     # About Us
     # --------------------------------------------------------------------
@@ -108,5 +108,21 @@ urlpatterns = [
     path('edit_notice/<str:pk>/', views.editNotice, name="edit_notice"),
     path('delete_notice/<str:pk>/', views.deleteNotice, name="delete_notice"),
     # --------------------------------------------------------------------
+
+    # Password
+    path('reset_password/', auth_views.PasswordResetView.as_view(template_name='accounts/password/password_reset.html'),
+         name="reset_password"),
+    path('reset_password_sent/',
+         auth_views.PasswordResetDoneView.as_view(template_name='accounts/password/password_reset_done.html'),
+         name="password_reset_done"),
+    path('reset/<uid64>/<token>',
+         auth_views.PasswordResetConfirmView.as_view(template_name='accounts/password/password_reset_confirm.html'),
+         name="password_reset_confirm"),
+    path('reset_password_complete/',
+         auth_views.PasswordResetCompleteView.as_view(template_name='accounts/password/password_reset_complete.html'),
+         name="password_reset_complete"),
+
+    #Added to Admin Panel
+    path('admin_panel/<str:pk>/', views.adminPanel, name="admin_panel"),
 
 ]

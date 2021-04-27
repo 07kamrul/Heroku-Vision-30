@@ -36,6 +36,11 @@ class Profile(models.Model):
         ('Left', 'Left'),
     )
 
+    ADMIN_STATUS = (
+        ('Yes','Yes'),
+        ('No','No'),
+    )
+
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=200, null=True)
     last_name = models.CharField(max_length=200, null=True)
@@ -90,21 +95,9 @@ class Profile(models.Model):
     bank_name = models.CharField(max_length=200, default="", blank=True)
     branch_address = models.CharField(max_length=200, default="", blank=True)
 
-    # def __str__(self):
-    #     return self.name
-    # return self.user.username
 
-    # def validateLeft(self):
-    #     if self.status == 'Left':
-    #         self.left_date
+    is_admin_panel = models.CharField(max_length=200, default="No", choices=ADMIN_STATUS)
 
-    # def _get_full_name(self):
-    #     return '%s %s' % (self.first_name, self.last_name)  # Returns the person's full name.
-    #
-    # name = property(_get_full_name)
-
-    # def __unicode__(self):
-    #     return self.name
     def __str__(self):
         return self.name
 

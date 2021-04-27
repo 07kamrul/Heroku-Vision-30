@@ -13,6 +13,11 @@ class ProfileForm(ModelForm):
         exclude = ['user']
 
 
+class AdminForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['is_admin_panel']
+
 class AmountForm(ModelForm):
     class Meta:
         model = Amount
@@ -59,8 +64,7 @@ class PersonalInformationForm(ModelForm):
     class Meta:
         model = Profile
         fields = ['profile_pic', 'father_name', 'mother_name', 'nid', 'phone', 'email', 'marital_status', 'occupation',
-                  'designation',
-                  'company', 'permanent_address', 'present_address']
+                  'designation', 'company', 'permanent_address', 'present_address']
 
 
 class PictureForm(ModelForm):

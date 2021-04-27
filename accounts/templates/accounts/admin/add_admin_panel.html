@@ -1,0 +1,61 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+
+<br>
+<div class="row justify-content-center align-self-center">
+    <div class="col-md-6">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <h3 class="text-center">Added to Admin Panel</h3>
+
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <table class="table table-borderless table-hover">
+                    <tbody>
+                        <tr>
+                            <td>Member Name:</td>
+                            <td>{{profile.name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Member Id:</td>
+                            <td>{{profile.member_id}}</td>
+                        </tr>
+                        <tr>
+                            <td>Joining Date:</td>
+                            <td>{{profile.joining_date}}</td>
+                        </tr>
+                        <tr>
+                            <td>Is Admin:</td>
+                            <td>{{form.is_admin_panel}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <div>
+                    <h5 class="text-center"> Are you sure you want to added to admin panel "{{profile.name}}"? </h5>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+
+                    <div class="row ">
+                        <div class="col">
+                            <a class="btn btn-danger btn-lg btn-block" href="{% url 'members' %}">Cancel</a>
+
+                        </div>
+                        <div class="col">
+                            <input type="submit" class="btn btn-success btn-lg btn-block">
+
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+<br>
+{% endblock %}
