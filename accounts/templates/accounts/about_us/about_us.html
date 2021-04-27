@@ -16,9 +16,9 @@
                 {% for au in aboutUs %}
                 <div>
 
-                    <textarea class="form-control" rows="4" cols="80" readonly="readonly">
-                    {{au}}
-                    </textarea>
+                    <p class="text-justify">
+                        {{au}}
+                    </p>
                     {% if request.user.is_staff %}
 
                     <a href="{% url 'edit_about_us' au.id %}" class="btn btn-outline-info btn-md float-left">Edit</a>

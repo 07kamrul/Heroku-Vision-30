@@ -100,4 +100,13 @@ urlpatterns = [
     path('delete_slider/<str:pk>/', views.deleteSlider, name="delete_slider"),
     # --------------------------------------------------------------------
 
+    # Notice
+    # --------------------------------------------------------------------
+    path('notice/', views.notice, name="notice"),
+    path('single_notice/<str:pk>/', views.singleNotice, name="single_notice"),
+    path('create_notice/', views.createNotice, name="create_notice"),
+    path('edit_notice/<str:pk>/', views.editNotice, name="edit_notice"),
+    path('delete_notice/<str:pk>/', views.deleteNotice, name="delete_notice"),
+    # --------------------------------------------------------------------
+
 ]

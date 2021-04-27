@@ -1,10 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+{% load widget_tweaks %}
 
-</body>
-</html>
+<br>
+
+<div class="row justify-content-center align-self-center">
+    <div class="col-md-6">
+        <div class="shadow p-3 mb-5 bg-white rounded" align="center">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h3>Edit Gallery</h3>
+                <hr>
+                <table>
+                    <tr>
+                        <td>Title: </td>
+                        <td>{{form.title}}</td>
+                    </tr>
+                    <tr>
+                        <td>Descriptions: </td>
+                        <td>{{form.descriptions}}</td>
+                    </tr>
+                    <tr>
+                        <td>Image:</td>
+                        <td>{{form.image}}</td>
+                    </tr>
+                </table>
+                <hr>
+                <div>
+                    <h5 class="text-center"> Are you want to Update this Gallery? </h5>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+
+                    <div class="row ">
+                        <div class="col">
+                            <a class="btn btn-danger btn-lg btn-block" href="{% url 'gallery' %}">Cancel</a>
+
+                        </div>
+                        <div class="col">
+                            <input type="submit" class="btn btn-success btn-lg btn-block">
+
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

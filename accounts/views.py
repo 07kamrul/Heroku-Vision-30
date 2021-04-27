@@ -183,18 +183,15 @@ def yourProfile(request):
 @login_required(login_url='login')
 def home(request):
     profile = Profile.objects.all()
-
-    total_member = profile.count()
-
+    gallery = Gallery.objects.all().order_by('-id').reverse()[:10]
     amount = Amount.objects.all().order_by('date').reverse()
-
-    last_amount = Amount.objects.all().order_by('date').reverse()[:30]
-
     about_us = AboutUs.objects.all().order_by('-id')[:3][::-1]
-
+    last_amount = Amount.objects.all().order_by('date').reverse()[:30]
     vision = Vision.objects.all().order_by('-id')[:5][::-1]
     transCondition = TermsConditions.objects.all().order_by('-id')[:5][::-1]
+    notice = Notice.objects.all()
 
+    total_member = profile.count()
     pending = amount.filter(status='Pending')
     pendingCount = amount.filter(status='Pending').count()
     total_pending_amount = sum([item.amount for item in pending])
@@ -210,7 +207,8 @@ def home(request):
     context = {'profile': profile, 'total_amount': total_amount, 'total_member': total_member, 'amount': amount,
                'total_complete_amount': total_complete_amount, 'total_pending_amount': total_pending_amount,
                'completeCount': completeCount, 'pendingCount': pendingCount, 'last_amount': last_amount,
-               'pendingAmountFunction': pendingAmountFunction, 'about_us': about_us, 'vision': vision, 'transCondition':transCondition}
+               'gallery': gallery, 'notice': notice, 'pendingAmountFunction': pendingAmountFunction,
+               'about_us': about_us, 'vision': vision, 'transCondition': transCondition}
 
     return render(request, 'accounts/dashboard.html', context)
 
@@ -511,7 +509,7 @@ def createAmount(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Successfully added!")
-            return redirect('/amounts/')
+            return redirect('amounts')
         else:
             messages.error(request, "Please fill in all the fields.")
 
@@ -530,7 +528,7 @@ def viewAmount(request, pk):
 
         if form.is_valid():
             form.save()
-            return redirect('/amounts/')
+            return redirect('amounts')
 
     context = {'form': form, 'amount': amount}
 
@@ -548,7 +546,7 @@ def updateAmount(request, pk):
 
         if form.is_valid():
             form.save()
-            return redirect('/amounts/')
+            return redirect('amounts')
 
     context = {'form': form, 'amount': amount}
 
@@ -562,7 +560,7 @@ def deleteAmount(request, pk):
 
     if request.method == 'POST':
         amount.delete()
-        return redirect('/amounts/')
+        return redirect('amounts')
 
     context = {'amount': amount}
 
@@ -608,9 +606,7 @@ def createAboutUs(request):
     if request.method == 'POST':
         form = AboutUsForm(request.POST)
         if form.is_valid():
-            create_aboutus = form.save()
-            description = form.cleaned_data.get('description')
-            create_aboutus = authenticate(request, description=description)
+            form.save()
             return redirect('about_us')
 
     context = {'form': form}
@@ -715,6 +711,7 @@ def termsConditions(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def createTermsConditions(request):
     form = TermsConditionsForm()
 
@@ -729,7 +726,8 @@ def createTermsConditions(request):
 
 
 @login_required(login_url='login')
-def editTermsConditions(request,pk):
+@allowed_users(allowed_roles=['admin'])
+def editTermsConditions(request, pk):
     termsConditions = TermsConditions.objects.get(id=pk)
 
     form = TermsConditionsForm(instance=termsConditions)
@@ -747,6 +745,7 @@ def editTermsConditions(request,pk):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def deleteTermsConditions(request, pk):
     termsConditions = TermsConditions.objects.get(id=pk)
 
@@ -768,30 +767,58 @@ def gallery(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def createGallery(request):
-    gallery = Gallery.objects.all()
-    context = {'gallery': gallery}
+    form = GalleryForm()
+
+    if request.method == 'POST':
+        form = GalleryForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Successfully added!")
+            return redirect('gallery')
+        else:
+            messages.error(request, "Please fill in all the fields.")
+
+    context = {'form': form}
 
     return render(request, 'accounts/gallery/create_gallery.html', context)
 
 
 @login_required(login_url='login')
-def editGallery(request):
-    gallery = Gallery.objects.all()
-    context = {'gallery': gallery}
+@allowed_users(allowed_roles=['admin'])
+def editGallery(request, pk):
+    gallery = Gallery.objects.get(id=pk)
+    form = GalleryForm(instance=gallery)
+
+    if request.method == 'POST':
+        form = GalleryForm(request.POST, request.FILES, instance=gallery)
+
+        if form.is_valid():
+            form.save()
+            return redirect('gallery')
+
+    context = {'form': form}
 
     return render(request, 'accounts/gallery/edit_gallery.html', context)
 
 
 @login_required(login_url='login')
-def deleteGallery(request):
-    gallery = Gallery.objects.all()
+@allowed_users(allowed_roles=['admin'])
+def deleteGallery(request, pk):
+    gallery = Gallery.objects.get(id=pk)
+
+    if request.method == 'POST':
+        gallery.delete()
+        return redirect('gallery')
+
     context = {'gallery': gallery}
 
     return render(request, 'accounts/gallery/delete_gallery.html', context)
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def createSlider(request):
     gallery = Gallery.objects.all()
     context = {'gallery': gallery}
@@ -800,8 +827,76 @@ def createSlider(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def deleteSlider(request):
     slider = Slider.objects.all()
     context = {'slider': slider}
 
     return render(request, 'accounts/gallery/delete_slider.html', context)
+
+
+@login_required(login_url='login')
+def notice(request):
+    notice = Notice.objects.all()
+    context = {'notice': notice}
+
+    return render(request, 'accounts/notice/notice.html', context)
+
+
+@login_required(login_url='login')
+def singleNotice(request, pk):
+    notice = Notice.objects.get(id=pk)
+    context = {'notice': notice}
+
+    return render(request, 'accounts/notice/single_notice.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def createNotice(request):
+    form = NoticeForm()
+
+    if request.method == 'POST':
+        form = NoticeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Successfully added!")
+            return redirect('notice')
+        else:
+            messages.error(request, "Please fill in all the fields.")
+
+    context = {'form': form}
+
+    return render(request, 'accounts/notice/create_notice.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def editNotice(request, pk):
+    notice = Notice.objects.get(id=pk)
+    form = NoticeForm(instance=notice)
+
+    if request.method == 'POST':
+        form = NoticeForm(request.POST, instance=notice)
+
+        if form.is_valid():
+            form.save()
+            return redirect('notice')
+
+    context = {'form': form}
+
+    return render(request, 'accounts/notice/edit_notice.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def deleteNotice(request, pk):
+    notice = Notice.objects.get(id=pk)
+
+    if request.method == 'POST':
+        notice.delete()
+        return redirect('notice')
+
+    context = {'notice': notice}
+
+    return render(request, 'accounts/notice/delete_notice.html', context)

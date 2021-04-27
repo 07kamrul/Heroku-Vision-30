@@ -114,9 +114,19 @@ class GalleryForm(ModelForm):
     class Meta:
         model = Gallery
         fields = '__all__'
-
+        widgets = {
+            'descriptions': forms.Textarea(attrs={'class': 'textarea', 'cols': 30, 'rows': 5, }),
+        }
 
 class SliderForm(ModelForm):
     class Meta:
         model = Slider
         fields = '__all__'
+
+class NoticeForm(ModelForm):
+    class Meta:
+        model = Notice
+        fields = '__all__'
+        widgets = {
+            'descriptions': forms.Textarea(attrs={'class': 'textarea', 'cols': 30, 'rows': 5, }),
+        }

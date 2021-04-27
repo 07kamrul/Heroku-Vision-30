@@ -3,6 +3,7 @@
 {% block content %}
 
 {% include 'accounts/status.html' %}
+
 <style>
 * {
   box-sizing: border-box;
@@ -47,6 +48,10 @@ body {
 }
 
 
+h1,h2,h3,h4,h5 {text-align: center;}
+p {text-align: center;}
+
+
 
 </style>
 <hr>
@@ -76,9 +81,9 @@ body {
         <div class="shadow p-3 mb-5 bg-white rounded">
             {% for au in about_us %}
 
-            <textarea class="form-control" rows="2" cols="50" readonly="readonly">
-                    {{au}}
-            </textarea>
+            <p class="text-justify">
+                {{au}}
+            </p>
             {% endfor %}
             <center><h4><a href="{% url 'about_us' %}" style="color:black;">Load more...</a></h4></center>
 
@@ -95,11 +100,11 @@ body {
         <div class="shadow p-3 mb-5 bg-white rounded">
             {% for v in vision %}
 
-            <textarea class="form-control" rows="2" cols="50" readonly="readonly">
-                    {{v}}
-            </textarea>
+            <p class="text-justify">
+                {{v}}
+            </p>
             {% endfor %}
-            <center><h4><a href="{% url 'about_us' %}" style="color:black;">Load more...</a></h4></center>
+            <center><h4><a href="{% url 'vision' %}" style="color:black;">Load more...</a></h4></center>
 
         </div>
     </div>
@@ -146,112 +151,25 @@ body {
 </div>
 
 <hr>
-<div class="row" style="font-family: Arial, Helvetica, sans-serif">
-    <h2 class="text-center">Gallery</h2>
+<div><h3>Gallery</h3></div>
+
+<div class="row shadow p-3 mb-5 bg-white rounded" style="font-family: Arial, Helvetica, sans-serif">
     <div class="row">
-        <div class="column">
-            <div class="card">
-                <h3>Card 1</h3>
-                <p>Some text</p>
-                <p>Some text</p>
-            </div>
-        </div>
+        {% for g in gallery %}
+                <div class="column">
+                    <div class="card">
+                        <img class="img-fluid img-thumbnail" src="{{g.image.url}}">
+                        <h3>{{g.title}}</h3>
+                        <p>{{g.descriptions}}</p>
+                        <p>{{g.publish_date}}</p>
+                    </div>
+                </div>
 
-        <div class="column">
-            <div class="card">
-                <h3>Card 2</h3>
-                <p>Some text</p>
-                <p>Some text</p>
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="card">
-                <h3>Card 3</h3>
-                <p>Some text</p>
-                <p>Some text</p>
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="card">
-                <h3>Card 4</h3>
-                <p>Some text</p>
-                <p>Some text</p>
-            </div>
-        </div>
-        <div class="column">
-            <div class="card">
-                <h3>Card 4</h3>
-                <p>Some text</p>
-                <p>Some text</p>
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="card">
-                <h3>Card 4</h3>
-                <p>Some text</p>
-                <p>Some text</p>
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="card">
-                <h3>Card 4</h3>
-                <p>Some text</p>
-                <p>Some text</p>
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="card">
-                <h3>Card 4</h3>
-                <p>Some text</p>
-                <p>Some text</p>
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="card">
-                <h3>Card 4</h3>
-                <p>Some text</p>
-                <p>Some text</p>
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="card">
-                <h3>Card 4</h3>
-                <p>Some text</p>
-                <p>Some text</p>
-            </div>
-        </div>
-        <div class="column">
-            <div class="card">
-                <h3>Card 4</h3>
-                <p>Some text</p>
-                <p>Some text</p>
-            </div>
-        </div>
-        <div class="column">
-            <div class="card">
-                <h3>Card 4</h3>
-                <p>Some text</p>
-                <p>Some text</p>
-            </div>
-        </div>
-        <div class="column">
-            <div class="card">
-                <h3>Card 4</h3>
-                <p>Some text</p>
-                <p>Some text</p>
-            </div>
-        </div>
-
-
+        {% endfor %}
     </div>
 </div>
+<center><h4><a href="{% url 'gallery' %}" style="color:black;">See more...</a></h4></center>
+
 
 <hr>
 
@@ -306,7 +224,7 @@ body {
                 </tr>
                 </tfoot>
             </table>
-            <center><h4><a href="amounts/" style="color:black;">See more...</a></h4></center>
+            <center><h4><a href="{% url 'amounts' %}" style="color:black;">See more...</a></h4></center>
         </div>
     </div>
 
@@ -315,9 +233,9 @@ body {
         <div class="shadow p-3 mb-5 bg-white rounded">
             {% for tc in transCondition %}
 
-            <textarea class="form-control" rows="2" cols="50" readonly="readonly">
-                    {{tc}}
-            </textarea>
+            <p class="text-justify">
+                {{tc}}
+            </p>
             {% endfor %}
             <center><h4><a href="{% url 'terms_conditions' %}" style="color:black;">Load more...</a></h4></center>
 
@@ -328,6 +246,9 @@ body {
 
 <script>
      $('#datatable').DataTable();
+
+
+
 
 
 

@@ -1,10 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'accounts/main.html' %}
 
-</body>
-</html>
+{% load static %}
+
+{% block content %}
+<style>
+	.profile-pic{
+		max-width: 100%;
+		max-height: 100%;
+		margin: 0 auto;
+	}
+
+
+
+
+</style>
+<br>
+<div class="container">
+    <div class="row center">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <form action="{% url 'delete_gallery' gallery.id %}" method="POST">
+                {% csrf_token %}
+                <h3 class="text-center">Delete Gallery</h3>
+
+                <div class="row">
+
+                    <div class="col-md">
+                        <table class="table table-borderless table-hover">
+                            <tbody>
+                            <tr>
+                                <td colspan="2">
+                                    <img class="profile-pic" src="{{gallery.image.url}}" alt="">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md">
+
+                        <table class="table table-borderless table-hover">
+                            <tbody>
+                                <tr>
+                                    <td>Title:</td>
+                                    <td>{{gallery.title}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Descriptions:</td>
+                                    <td>{{gallery.descriptions}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        <div>
+                            <h5 class="text-center"> Are you want to delete "{{gallery}}"? </h5>
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            <div class="row ">
+                                <div class="col">
+                                    <a class="btn btn-danger btn-lg btn-block" href="{% url 'gallery' %}">Cancel</a>
+
+                                </div>
+                                <div class="col">
+                                    <input type="submit" class="btn btn-success btn-lg btn-block">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

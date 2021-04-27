@@ -8,27 +8,22 @@
 <div class="row justify-content-center align-self-center">
     <div class="col-md-6">
         <div class="shadow p-3 mb-5 bg-white rounded" align="center">
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="" method="POST">
                 {% csrf_token %}
 
-                <h3>Create About Us</h3>
+                <h3>Create Notice</h3>
                 <table class="table table-borderless table-hover">
                     <tbody>
                         <tr>
-                            <td>Title:</td>
-                            <td>{{form.title}}</td>
+                            <td>Notice Title:</td>
+                            <td>{{form.notice}}</td>
                         </tr>
                         <tr>
-                            <td>Descriptions:</td>
-                            <td>{{form.descriptions}}</td>
-                        </tr>
-                        <tr>
-                            <td>Image:</td>
-                            <td>{{form.image}}</td>
+                            <td>Notice Descriptions:</td>
+                            <td>{% render_field form.descriptions row="3" col="5" placeholder="Enter your descriptions... " class="textarea" %}</td>
                         </tr>
                     </tbody>
                 </table>
-
                 <hr>
                 <input type="submit" name="Submit" class="btn btn-success btn-lg">
                 {{form.errors}}

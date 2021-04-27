@@ -10,13 +10,13 @@
         <div class="shadow p-3 mb-5 bg-white rounded" align="center">
             <form action="" method="POST">
                 {% csrf_token %}
-                <h3>Delete About Us</h3>
+                <h3>Delete Terms & Conditions</h3>
                 <hr>
                 <div class="field">
                     <label class="label">Conditions:</label>
-                    <textarea class="form-control" rows="4" cols="80" readonly="readonly">
-                    {{termsConditions}}
-                    </textarea>
+                    <p class="text-justify">
+                        {{termsConditions}}
+                    </p>
                 </div>
                 <hr>
                 <div>
@@ -24,15 +24,12 @@
                     &nbsp;
                     &nbsp;
                     &nbsp;
-
                     <div class="row ">
                         <div class="col">
                             <a class="btn btn-danger btn-lg btn-block" href="{% url 'terms_conditions' %}">Cancel</a>
-
                         </div>
                         <div class="col">
                             <input type="submit" class="btn btn-success btn-lg btn-block">
-
                         </div>
                     </div>
                 </div>

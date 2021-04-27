@@ -181,7 +181,9 @@ class AboutUs(models.Model):
 
 class Gallery(models.Model):
     title = models.CharField(max_length=500, null=True, blank=True)
+    descriptions = models.CharField(max_length=1000, null=True, blank=True)
     image = models.ImageField(upload_to='images/gallery/',null=True, blank=True)
+    publish_date = models.DateField(auto_now_add=True, auto_now=False, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -192,3 +194,11 @@ class Slider(models.Model):
 
     def __str__(self):
         return self.title
+
+class Notice(models.Model):
+    notice = models.CharField(max_length=100, null=True, blank=True)
+    descriptions = models.CharField(max_length=1000, null=True, blank=True)
+    publish_date = models.DateField(auto_now_add=True, auto_now=False, null=True, blank=True)
+
+    def __str__(self):
+        return self.notice

@@ -1,0 +1,36 @@
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+
+
+<br>
+
+
+<div class="container">
+    <div class="center">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+
+            <ul class="list-group list-group-flush">
+                <h2 class="text-center"><u>Notice: {{notice.notice}}</u></h2>
+
+                <div>
+
+                    <textarea class="form-control text-justify" rows="3" readonly>{{notice.descriptions}}</textarea>
+                      <p class="float-right">
+                        {{notice.publish_date}}
+                    </p>
+                    <br>
+                    <center><a href="{% url 'notice' %}" class="btn btn-outline-info btn-md ">View All Notice</a></center>
+
+                </div>
+                <hr>
+
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

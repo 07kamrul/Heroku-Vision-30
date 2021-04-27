@@ -10,26 +10,27 @@
         <div class="shadow p-3 mb-5 bg-white rounded" align="center">
             <form action="" method="POST">
                 {% csrf_token %}
-                <h3>Delete Vision</h3>
-                <hr>
-                <div class="field">
-                    <label class="label">Vision:</label>
-                    <p class="text-justify">
-                        {{vision}}
-                    </p>
-                </div>
-                <hr>
+                <h3><u>Delete Notice</u></h3>
                 <div>
-                    <h5 class="text-center"> Are you want to Delete this vision? </h5>
+                    <h4 class="float-left">{{notice.notice}}</h4>
+                    <br>
+                    <textarea class="form-control text-justify" rows="3" readonly>{{notice.descriptions}}</textarea>
+                    <p class="text-right">{{notice.publish_date}}</p>
+                </div>
+
+                <div>
+                    <h5 class="text-center"> Are you want to Delete this notice? </h5>
                     &nbsp;
                     &nbsp;
                     &nbsp;
                     <div class="row ">
                         <div class="col">
-                            <a class="btn btn-danger btn-lg btn-block" href="{% url 'vision' %}">Cancel</a>
+                            <a class="btn btn-danger btn-lg btn-block" href="{% url 'notice' %}">Cancel</a>
+
                         </div>
                         <div class="col">
                             <input type="submit" class="btn btn-success btn-lg btn-block">
+
                         </div>
                     </div>
                 </div>
